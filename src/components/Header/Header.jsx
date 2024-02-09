@@ -1,7 +1,8 @@
 import React from "react";
 import "./Header.css";
-
+import { useAuth0 } from "@auth0/auth0-react";
 const Header = () => {
+  const { loginWithRedirect, isAuthenticated, logout, user } = useAuth0();
   return (
     <section className="h-wrapper">
       <div className="flexCenter paddings innerWidth h-container">
@@ -16,7 +17,18 @@ const Header = () => {
           <a href="#">Insurance claim</a>
           <a href="#">Blog</a>
           <a href="#">Vehicle lab</a>
-          <a href="#">Login</a>
+          {isAuthenticated && <p> Welcome, {user.email} </p>}
+          {isAuthenticated ? (
+            <button
+              onClick={() =>
+                logout({ logoutParams: { returnTo: window.location.origin } })
+              }
+            >
+              Log Out
+            </button>
+          ) : (
+            <button onClick={() => loginWithRedirect()}>Log In</button>
+          )}
         </nav>
       </div>
     </section>
