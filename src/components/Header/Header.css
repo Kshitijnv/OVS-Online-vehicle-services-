@@ -1,0 +1,29 @@
+.h-wrapper {
+    background-color: #131110;
+    color: #fff;
+  }
+  
+  .h-container {
+    justify-content: space-between;
+    padding: 10px; 
+  }
+  
+  .h-menu {
+    flex-grow: 1;
+    justify-content: flex-end;
+  }
+  
+  .h-menu a {
+    color: #fff;
+    text-decoration: solid;
+    margin: 0 10px; 
+    padding: 0 4px;
+    transition: color 0.3s ease, transform 0.3s ease; 
+    display: inline-block;
+  }
+  
+  .h-menu a:hover {
+    color: #ffa600f3;
+    transform: scale(1.08); 
+  }
+  
