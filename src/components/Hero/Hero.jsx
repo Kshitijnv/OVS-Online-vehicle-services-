@@ -2,7 +2,8 @@ import React from "react";
 import "./Hero.css";
 import { HiLocationMarker } from "react-icons/hi";
 import CountUp from "react-countup";
-
+import Cards from "./Cards/Cards";
+import Testimonial from "./Testimonial/Testimonial";
 const Hero = () => {
   return (
     <section className="hero-wrapper">
@@ -58,6 +59,32 @@ const Hero = () => {
           </div>
         </div>
       </div>
+      {/* middle component how we help you */}
+      <h2 id="card-heading">Explore How Mr Buddy Can Help you</h2>
+      <section className="card-container">
+        <Cards
+          title="Car Repair"
+          image="./Images/car-repair.png"
+          altmsg="Car Repairing"
+          desc=" Lorem ipsum dolor sit amet consectetur adipisicing elit. Qui
+              cumque ducimus minima eaque vel facilis."
+        />
+        <Cards
+          title="Dent & Paint"
+          image="./Images/car-paint.png"
+          altmsg="Car Denting and painting"
+          desc=" Lorem ipsum dolor sit amet consectetur adipisicing elit. Qui
+              cumque ducimus minima eaque vel facilis."
+        />
+        <Cards
+          title="Insurance Claim"
+          image="./Images/car-insurance.png"
+          altmsg="Car Insurance"
+          desc=" Lorem ipsum dolor sit amet consectetur adipisicing elit. Qui
+              cumque ducimus minima eaque vel facilis."
+        />
+      </section>
+      <Testimonial />
     </section>
   );
 };
