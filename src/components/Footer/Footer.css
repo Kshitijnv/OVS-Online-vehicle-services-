@@ -1,0 +1,44 @@
+footer{
+    background-color: rgb(16, 15, 15);
+    margin: 0;
+    padding: 0;
+    color: white;
+}
+.social{
+    display: flex;
+    justify-content: center;
+    margin-top: 1rem;
+    
+
+}
+.social svg {
+    margin-right: 1.5rem; 
+    width: 30px; /* Adjust the width as needed */
+    height: 30px; /* Adjust the height as needed */
+}
+
+
+  table{
+    display: flex;
+    justify-content: center;
+    margin-top: 1rem;
+  }
+  td {
+    padding: 8px;
+  }
+  
+  /* Align content in the first td to the left */
+  td {
+    text-align: left;
+  }
+  td:first-child > * {
+    margin-right: 5px; /* Adjust the margin as needed */
+  }
+  footer p:last-child {
+    margin: 1rem 0;
+    padding-bottom: 1rem;
+    font-size: 15px; /* Adjust the font size as needed */
+  }
+ 
+ 
+ 
