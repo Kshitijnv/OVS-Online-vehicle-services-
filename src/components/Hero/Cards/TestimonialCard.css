@@ -12,7 +12,8 @@
     color: var(--helper-tint); /* Adjust the color as needed */
     position: absolute;
     top: -2rem; /* Adjust the vertical position as needed */
-    left: 50%;
+    left: 25%;
+    right: 25%;
     transform: translateX(-50%);
   }
   
@@ -26,4 +27,7 @@
     transform: translateX(-50%);
   }
   
-  
+  .testimonial-card {
+    display: flex; /* Use flexbox */
+    justify-content: center; /* Center horizontally */
+    align-items: center; /* Center vertically */

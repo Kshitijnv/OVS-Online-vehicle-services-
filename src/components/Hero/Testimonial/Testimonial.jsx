@@ -12,14 +12,10 @@ function Testimonial() {
     <>
       <Swiper
         slidesPerView={2}
-        spaceBetween={30}
         pagination={{
           clickable: true,
         }}
-        autoplay={{
-          // Enable autoplay
-          delay: 2000,
-        }}
+        
         modules={[Pagination]}
         className="mySwiper"
       >
