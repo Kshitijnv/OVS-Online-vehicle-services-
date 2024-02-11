@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 
 function CityName() {
-  const [city, setCity] = useState('');
+  const [city, setCity] = useState('City');
 
   useEffect(() => {
     // Function to get the city name

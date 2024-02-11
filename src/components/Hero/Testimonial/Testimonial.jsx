@@ -15,7 +15,10 @@ function Testimonial() {
         pagination={{
           clickable: true,
         }}
-        
+        autoplay={{
+          // Enable autoplay
+          delay: 2000,
+        }}
         modules={[Pagination]}
         className="mySwiper"
       >

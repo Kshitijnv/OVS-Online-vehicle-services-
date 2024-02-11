@@ -4,7 +4,7 @@ import { HiLocationMarker } from "react-icons/hi";
 import CountUp from "react-countup";
 import Cards from "./Cards/Cards";
 import Testimonial from "./Testimonial/Testimonial";
-import CityName from "../CityName";
+import CityName from "./CityName";
 const Hero = () => {
   return (
     <section className="hero-wrapper">
