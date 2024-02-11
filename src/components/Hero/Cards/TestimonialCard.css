@@ -1,0 +1,29 @@
+.swiper-client-msg{
+    padding: 5rem 8rem;
+    background: var(--white);
+    border-radius: 1rem;
+    text-align: left;
+    box-shadow: var(--shadow);
+    position: relative;
+}
+.swiper-client-msg::before {
+    content: '\201C'; /* Unicode for left double quotation mark */
+    font-size: 3rem; /* Adjust the font size as needed */
+    color: var(--helper-tint); /* Adjust the color as needed */
+    position: absolute;
+    top: -2rem; /* Adjust the vertical position as needed */
+    left: 50%;
+    transform: translateX(-50%);
+  }
+  
+  .swiper-client-msg::after {
+    content: '\201D'; /* Unicode for right double quotation mark */
+    font-size: 3rem; /* Adjust the font size as needed */
+    color: var(--helper-tint); /* Adjust the color as needed */
+    position: absolute;
+    bottom: -2rem; /* Adjust the vertical position as needed */
+    left: 50%;
+    transform: translateX(-50%);
+  }
+  
+  
