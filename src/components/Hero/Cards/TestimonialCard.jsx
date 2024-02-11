@@ -1,5 +1,4 @@
-import React from "react";
-
+import "./TestimonialCard.css";
 function TestimonialCard() {
   return (
     <>
@@ -14,10 +13,16 @@ function TestimonialCard() {
               />
             </div>
             <div className=" swiper-client-msg">
-              <p className="mb-0 text-sm ">
+              <img src="./Images/invertedComma.png" alt="" />
+              <span className="mb-0 text-sm ">
                 Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque
                 vehicula gravida odio, a vulputate elit condimentum nec.
-              </p>
+              </span>
+              <img
+                src="./Images/invertedComma.png"
+                alt=""
+                className="img-fluid rotate-image"
+              />
               <p className="mb-0 font-weight-bold text-md">John Doe</p>
               <p className="text-muted mb-0 text-sm">January 20, 2023</p>
             </div>
