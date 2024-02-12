@@ -7,14 +7,15 @@ const Header = () => {
   return (
     <section className="h-wrapper">
       <div className="flexCenter paddings innerWidth h-container">
-        <img src="./Images/Brandlogo.png" alt="logo" width={100} />
-
+        <Link to="/">
+          <img src="./Images/Brandlogo.png" alt="logo" width={100} />
+        </Link>
         <nav className="flexCenter h-menu">
           <Link to="/car-service">Car services</Link>
           <Link to="#">Insurance claim</Link>
           <Link to="#">Blog</Link>
           <Link to="#">Vehicle lab</Link>
-          {isAuthenticated && <p> Welcome, {user.email} </p>}
+          {isAuthenticated && <p> Welcome, {user.name} </p>}
           {isAuthenticated ? (
             <button
               onClick={() =>
