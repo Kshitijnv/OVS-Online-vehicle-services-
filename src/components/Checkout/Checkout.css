@@ -68,3 +68,8 @@
     display: flex;
     justify-content: end;
   }
+  .error-message {
+    color: red;  /* or any other color you prefer */
+    font-size: 14px;  /* adjust the font size as needed */
+  }
+  
