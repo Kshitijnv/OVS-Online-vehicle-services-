@@ -1,6 +1,19 @@
 // Assuming you have a separate CSS file for styling
 import { CiClock2 } from "react-icons/ci";
+import { useAuth0 } from "@auth0/auth0-react";
+import { useNavigate } from "react-router-dom";
 function Services() {
+  const { loginWithRedirect, isAuthenticated } = useAuth0();
+  const navigate = useNavigate();
+  const handleAddToCart = () => {
+    if (isAuthenticated) {
+      // User is logged in, navigate to the checkout page
+      navigate("/checkout");
+    } else {
+      // User is not logged in, redirect to login and set returnUrl
+      loginWithRedirect({ authorizationParams: "/checkout" });
+    }
+  };
   return (
     <>
       <div className="container service-container border rounded p-4">
@@ -58,7 +71,9 @@ function Services() {
             {/* Last Row - Add to Cart Button */}
             <div className="row">
               <div className="col-md-6 offset-md-6 d-flex align-items-center justify-content-end">
-                <button className="btn btn-primary">Add to Cart</button>
+                <button className="button" onClick={handleAddToCart}>
+                  Add to Cart
+                </button>
               </div>
             </div>
           </div>
