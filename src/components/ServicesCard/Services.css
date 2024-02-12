@@ -1,0 +1,89 @@
+.service-container {
+    background-color: #fff;
+    margin-top: 20px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    padding: 20px; /* Added padding for spacing inside the border */
+    margin-bottom: 20px;
+  }
+  .specification-container{
+    background-color: #f0f0f0;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    
+  }
+  .service-container img {
+    max-width: 8rem;
+    padding-bottom: 2rem;
+  }
+  
+  .original-price {
+    text-decoration: line-through;
+    font-size: 14px; /* Adjust the font size for the original price */
+    color: red; /* Adjust the color for the original price */
+  }
+  
+  .discounted-price {
+    font-weight: bold;
+    font-size: 18px; 
+    color: green;
+    /* Adjust the font size for the discounted price */
+  }
+  
+  .service-info {
+    color: #333;
+
+  }
+  
+  .list {
+    display:inline-block;
+  }
+  
+  .btn-primary {
+    background-color: #007bff;
+    color: #fff;
+  }
+  
+  .btn-primary:hover {
+    background-color: #0056b3;
+  }
+  
+  .second-row{
+    padding-top:100px;
+  }
+
+.hours-taken{
+  background-color: rgb(196, 192, 192);
+  border: 1px solid rgb(196, 192, 192);
+  border-radius: 0.3rem;
+  padding: 0.5rem;
+  font-size: medium;
+  font-weight: 500;
+ width: fit-content;
+}
+.right-container{
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: flex-end;
+}
+.left-container{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 2rem 0rem;
+}
+.list {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+
+  list-style: none;
+  padding: 0;
+}
+
+.list li {
+  display: flex;
+  align-items: center;
+  margin: 0.2rem;
+  flex-basis: calc(50% - 20px); /* Two specifications per row with margin */
+  box-sizing: border-box;
+}
