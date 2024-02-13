@@ -1,2 +1,0 @@
-// config.js
-export const API_KEY = 'M1lZb2ZaR1ZOOXVRZE1BMDFjZXZjWEFPeHhjQU45MEF5VWZZZjhDNA==';
