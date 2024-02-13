@@ -4,6 +4,8 @@ import { HiLocationMarker } from "react-icons/hi";
 import CountUp from "react-countup";
 import Cards from "./Cards/Cards";
 import Testimonial from "./Testimonial/Testimonial";
+import CityName from "./CityName";
+
 const Hero = () => {
   return (
     <section className="hero-wrapper">
@@ -12,7 +14,7 @@ const Hero = () => {
           <div className="hero-title">
             <div className="orange-circle"></div>
             <h1>
-              Experience Premier Car <br /> Care Services <br /> in
+              Experience Premier Car <br /> Care Services <br /> in <CityName />
             </h1>
           </div>
           <div className="flexColStart hero-des">
