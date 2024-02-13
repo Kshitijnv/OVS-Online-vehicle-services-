@@ -1,5 +1,7 @@
 import React, { useState, useEffect } from "react";
 import "./AddressSection.css";
+import { API_KEY } from "./config";
+
 const AddressSection = () => {
   const [street, setStreet] = useState("");
   const [area, setArea] = useState("");
@@ -11,10 +13,21 @@ const AddressSection = () => {
 
   // Fetch the list of states
   useEffect(() => {
-    // Simulating an API request to fetch states
-    fetch("https://api.example.com/states")
+    const headers = new Headers();
+    headers.append('X-CSCAPI-KEY', API_KEY);
+    fetch("https://api.countrystatecity.in/v1/countries/IN/states", {
+      headers: headers
+    })
       .then((response) => response.json())
-      .then((data) => setStates(data))
+      .then((data) => {
+        // Extracting required data from the API response
+        const formattedStates = data.map((state) => ({
+          id: state.id,
+          name: state.name,
+          code: state.iso2 // Assuming this is the code you want to use
+        }));
+        setStates(formattedStates);
+      })
       .catch((error) => console.error("Error fetching states:", error));
   }, []);
 
@@ -22,8 +35,12 @@ const AddressSection = () => {
   useEffect(() => {
     if (selectedState) {
       setLoadingCities(true);
-      // Simulating an API request to fetch cities based on the selected state
-      fetch(`https://api.example.com/cities?state=${selectedState}`)
+      const headers = new Headers();
+      headers.append('X-CSCAPI-KEY', API_KEY);
+      // Fetching cities based on the selected state code
+      fetch(`https://api.countrystatecity.in/v1/countries/IN/states/${selectedState}/cities`, {
+        headers: headers
+      })
         .then((response) => response.json())
         .then((data) => {
           setCities(data);
@@ -51,7 +68,7 @@ const AddressSection = () => {
             >
               <option value="">-- Select State --</option>
               {states.map((state) => (
-                <option key={state.code} value={state.code}>
+                <option key={state.id} value={state.code}>
                   {state.name}
                 </option>
               ))}
