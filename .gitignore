@@ -12,7 +12,7 @@
 /build
 
 #API
-/src\components\Address
+/src/components/Address/config.js
 
 # misc
 .DS_Store
