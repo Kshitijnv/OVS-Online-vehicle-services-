@@ -4,7 +4,8 @@ import Hero from "./components/Hero/Hero";
 import { Route, Routes } from "react-router-dom";
 import Footer from "./components/Footer/Footer";
 import Services from "./components/Services/Services";
-import Checkout from "./components/Checkout/Checkout";
+import PaymentSuccess from "./components/PaymentSuccess/PaymentSuccess";
+import Cart from "./components/CartComponent/Cart";
 
 function App() {
   return (
@@ -13,7 +14,9 @@ function App() {
       <Routes>
         <Route path="/" element={<Hero />} />
         <Route path="/car-service" element={<Services />} />
-        <Route path="/checkout" element={<Checkout />} />
+        <Route path="/checkout" element={<Cart />} />
+        <Route path="/payment-success" element={<PaymentSuccess />} />
+        <Route path="/cart" element={<Cart />} />
       </Routes>
       <Footer />
     </div>

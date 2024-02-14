@@ -4,6 +4,7 @@ import { useAuth0 } from "@auth0/auth0-react";
 import { Link } from "react-router-dom";
 const Header = () => {
   const { loginWithRedirect, isAuthenticated, logout, user } = useAuth0();
+
   return (
     <section className="h-wrapper">
       <div className="flexCenter paddings innerWidth h-container">
@@ -27,6 +28,7 @@ const Header = () => {
           ) : (
             <button onClick={() => loginWithRedirect()}>Log In</button>
           )}
+          {isAuthenticated && <Link to="/cart">Cart</Link>}
         </nav>
       </div>
     </section>

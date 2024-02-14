@@ -1,21 +1,48 @@
 import { CiClock2 } from "react-icons/ci";
 import { IoIosStar } from "react-icons/io";
 import { useAuth0 } from "@auth0/auth0-react";
-import { useNavigate } from "react-router-dom";
+
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 import "./Services.css";
 function ServicesCard(props) {
   const { loginWithRedirect, isAuthenticated } = useAuth0();
-  const navigate = useNavigate();
+
   const handleAddToCart = () => {
     if (isAuthenticated) {
-      // User is logged in, navigate to the checkout page
-      navigate("/checkout", { state: { servicePrice: props.price } });
+      let cart = JSON.parse(localStorage.getItem("cart"));
+      if (cart) {
+        if (cart.id === props.id) {
+          // alert("!!!!Service is Already added to the cart!!!!, go to the cart");
+          toast.warning("Service is Already added to the cart", {
+            position: "top-center",
+            autoClose: 3000,
+          });
+        } else {
+          toast.error("Only 1 Service can be choosen at a time", {
+            position: "top-center",
+            autoClose: 3000,
+          });
+        }
+      } else {
+        cart = props;
+        // alert("Service is added to the cart successfully");
+        toast.success("Service is added to the cart successfully", {
+          position: "top-center",
+          autoClose: 3000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: false,
+          draggable: true,
+          progress: undefined,
+        });
+        console.log(cart);
+      }
+      localStorage.setItem("cart", JSON.stringify(cart));
     } else {
       // User is not logged in, redirect to login and set returnUrl
-      loginWithRedirect({
-        authorizationParams: "/checkout",
-      });
+      loginWithRedirect();
     }
   };
   return (
@@ -65,6 +92,7 @@ function ServicesCard(props) {
           </div>
         </div>
       </div>
+      <ToastContainer />
     </>
   );
 }

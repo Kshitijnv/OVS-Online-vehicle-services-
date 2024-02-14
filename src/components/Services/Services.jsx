@@ -2,6 +2,7 @@ import ServicesCard from "../ServicesCard/ServicesCard";
 function Services() {
   const services = [
     {
+      id: 1,
       name: "Regular AC Service",
       price: 2000,
       time: 4,
@@ -14,6 +15,7 @@ function Services() {
       ],
     },
     {
+      id: 2,
       name: "Premium Service",
       price: 4000,
       time: 6,
@@ -26,6 +28,7 @@ function Services() {
       ],
     },
     {
+      id: 3,
       name: "Dent & Paint",
       price: 3000,
       time: 5,
@@ -38,6 +41,7 @@ function Services() {
       {services.map((service, index) => (
         <ServicesCard
           key={index}
+          id={service.id}
           price={service.price}
           name={service.name}
           specs={service.specifications}
