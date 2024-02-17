@@ -5,33 +5,36 @@ function Footer() {
   return (
     <>
       <footer>
-        <div class="content">
-          <div class="top">
-            <div class="logo-details">
-              <i class="fab fa-slack"></i>
-              <span class="logo_name">Mr Buddy</span>
+        <div className="content">
+          <div className="top">
+            <div className="logo-details">
+              <i className="fab fa-slack"></i>
+              <span className="logo_name">Mr Buddy</span>
             </div>
-            <div class="media-icons">
+            <div className="media-icons">
               <Link to="#">
-                <i class="fab fa-facebook-f"></i>
+                <i className="fab fa-facebook-f"></i>
               </Link>
               <Link to="#">
-                <i class="fab fa-twitter"></i>
+                <i className="fab fa-twitter"></i>
               </Link>
               <Link to="#">
-                <i class="fab fa-instagram"></i>
+                <i className="fab fa-instagram"></i>
               </Link>
               <Link to="#">
-                <i class="fab fa-linkedin-in"></i>
+                <i className="fab fa-linkedin-in"></i>
               </Link>
               <Link to="#">
-                <i class="fab fa-youtube"></i>
+                <i className="fab fa-youtube"></i>
+              </Link>
+              <Link>
+                <i className="fab fa-github"></i>
               </Link>
             </div>
           </div>
-          <div class="link-boxes">
-            <ul class="box">
-              <li class="link_name">Company</li>
+          <div className="link-boxes">
+            <ul className="box">
+              <li className="link_name">Company</li>
               <li>
                 <Link to="/">Home</Link>
               </li>
@@ -45,8 +48,8 @@ function Footer() {
                 <Link to="#">Get started</Link>
               </li>
             </ul>
-            <ul class="box">
-              <li class="link_name">Services</li>
+            <ul className="box">
+              <li className="link_name">Services</li>
               <li>
                 <Link to="/car-service">AC Services</Link>
               </li>
@@ -60,8 +63,8 @@ function Footer() {
                 <Link to="/car-service">Lights & Fitments</Link>
               </li>
             </ul>
-            <ul class="box">
-              <li class="link_name">Account</li>
+            <ul className="box">
+              <li className="link_name">Account</li>
               <li>
                 <Link to="#">Profile</Link>
               </li>
@@ -75,8 +78,8 @@ function Footer() {
                 <Link to="#">Purchase</Link>
               </li>
             </ul>
-            <ul class="box input-box">
-              <li class="link_name">Subscribe</li>
+            <ul className="box input-box">
+              <li className="link_name">Subscribe</li>
               <li>
                 <input type="text" placeholder="Enter your email" />
               </li>
@@ -86,64 +89,18 @@ function Footer() {
             </ul>
           </div>
         </div>
-        <div class="bottom-details">
-          <div class="bottom_text">
-            <span class="copyright_text">
+        <div className="bottom-details">
+          <div className="bottom_text">
+            <span className="copyright_text">
               Copyright © 2024 <Link to="#">Mr Buddy </Link>All rights reserved
             </span>
-            <span class="policy_terms">
+            <span className="policy_terms">
               <Link to="#">Privacy policy</Link>
               <Link to="#">Terms & condition</Link>
             </span>
           </div>
         </div>
       </footer>
-      {/* <footer>
-        <h2>
-          <FaCar /> Mr Buddy
-        </h2>
-        <p>Pashan panchavati Acts CDAC Innovation park, pune</p>
-        <div className="social">
-          <TiSocialFacebook />
-          <SlSocialInstagram />
-          <TiSocialTwitter />
-          <TiSocialYoutube />
-        </div>
-
-        <table>
-          <tbody>
-            <tr>
-              <td>
-                <MdOutlineMailOutline />
-                Email
-              </td>
-              <td>abc@gmail.com</td>
-            </tr>
-            <tr>
-              <td>
-                <MdOutlineLocalPhone />
-                Phone
-              </td>
-              <td>123-456-7890</td>
-            </tr>
-            <tr>
-              <td>
-                <VscCalendar />
-                Working Days
-              </td>
-              <td>Monday-Sunday</td>
-            </tr>
-            <tr>
-              <td>
-                <IoMdTime />
-                Working Hours
-              </td>
-              <td>7:00AM - 9:00PM(IST)</td>
-            </tr>
-          </tbody>
-        </table>
-        <p>&copy; 2024 Online Vehicle Service All rights reserved</p>
-      </footer> */}
     </>
   );
 }

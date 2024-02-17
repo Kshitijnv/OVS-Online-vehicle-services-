@@ -1,53 +1,45 @@
+import { useEffect, useState } from "react";
 import ServicesCard from "../ServicesCard/ServicesCard";
-function Services() {
-  const services = [
-    {
-      id: 1,
-      name: "Regular AC Service",
-      price: 2000,
-      time: 4,
-      specifications: [
-        "Oil Change",
-        "Cleaning",
-        "AC Vents Cleaning",
-        "AC Inspection",
-        "AC Gas Refill",
-      ],
-    },
-    {
-      id: 2,
-      name: "Premium Service",
-      price: 4000,
-      time: 6,
-      specifications: [
-        "Advanced Cleaning",
-        "Filter Replacement",
-        "AC Vents Cleaning",
-        "AC Inspection",
-        "AC Gas Refill",
-      ],
-    },
-    {
-      id: 3,
-      name: "Dent & Paint",
-      price: 3000,
-      time: 5,
-      specifications: ["Dent Repair", "Paint Restoration"],
-    },
-  ];
+import axios from "axios";
+import { useAuth0 } from "@auth0/auth0-react";
+import { toast } from "react-toastify";
 
+function Services() {
+  const [services, setServices] = useState([]);
+  const { isAuthenticated } = useAuth0();
+  useEffect(() => {
+    if (isAuthenticated) {
+      async function fetchData() {
+        try {
+          const response = await axios.get("http://localhost:7070/car-service");
+          setServices((prevServices) => [...prevServices, ...response.data]);
+        } catch (error) {
+          console.error("Error fetching services:", error);
+        }
+      }
+
+      fetchData();
+    }
+    if (!isAuthenticated) {
+      toast.warn("Please Login first!!!");
+    }
+  }, [isAuthenticated]);
   return (
     <>
-      {services.map((service, index) => (
-        <ServicesCard
-          key={index}
-          id={service.id}
-          price={service.price}
-          name={service.name}
-          specs={service.specifications}
-          time={service.time}
-        />
-      ))}
+      {services.length > 0 ? (
+        services.map((service, index) => (
+          <ServicesCard
+            key={index}
+            serviceId={service.serviceId}
+            price={service.price}
+            name={service.name}
+            specifications={service.specifications}
+            duration={service.duration}
+          />
+        ))
+      ) : (
+        <p>Please Login First</p>
+      )}
     </>
   );
 }

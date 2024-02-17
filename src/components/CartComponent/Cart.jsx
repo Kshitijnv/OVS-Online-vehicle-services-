@@ -12,6 +12,10 @@ function Cart() {
   const [selectedTimeSlot, setSelectedTimeSlot] = useState(null);
   const [isOrderReady, setIsOrderReady] = useState(false);
   const [showErrorMessage, setShowErrorMessage] = useState(false);
+  const [street, setStreet] = useState("");
+  const [area, setArea] = useState("");
+  const [city, setCity] = useState("");
+  const [state, setState] = useState("");
   const navigate = useNavigate();
 
   // Function to update selected date
@@ -29,12 +33,11 @@ function Cart() {
   const validateOrder = () => {
     // Perform validation logic based on your requirements
     const isReady = selectedDate && selectedTimeSlot; // Add more conditions as needed
-
     setIsOrderReady(isReady);
   };
 
   // Access the service price from the location state
-  const servicePrice = cartdata.price;
+  const servicePrice = cartdata.price + 99;
   const loadScript = (src) => {
     return new Promise((resolve) => {
       const script = document.createElement("script");
@@ -53,9 +56,9 @@ function Cart() {
       // Perform actions when the "Place an Order" button is clicked
       // You can use the userAddress, selectedDate, selectedTimeSlot, etc.
       console.log("button clicked");
-      let orderId =
-        "OD" +
-        Math.floor(Math.random() * Math.floor(Math.random() * Date.now()));
+      // let orderId =
+      //   "OD" +
+      //   Math.floor(Math.random() * Math.floor(Math.random() * Date.now()));
 
       const res = await loadScript(
         "https://checkout.razorpay.com/v1/checkout.js"
@@ -64,19 +67,38 @@ function Cart() {
         alert("Razorpay SDK failed to load. Are you online?");
         return;
       }
+
       let paymentRes = {
-        order_id: orderId,
+        // order_id: orderId,
         amount: servicePrice,
+        user: {
+          username: user.name,
+          phoneNumber: user.phone_number,
+          emailId: user.email,
+          serviceId: JSON.parse(sessionStorage.getItem("cart")),
+        },
+        appointment: {
+          status: "PENDING",
+          pickUpDate: JSON.stringify(selectedDate),
+          pickUpTime: JSON.stringify(selectedTimeSlot),
+        },
+        address: {
+          adrLine1: street,
+          adrLine2: area,
+          city: city,
+          state: state,
+        },
+
         currency: "INR",
         payment_capture: 1,
-        customerName: user.name,
-        phoneNumber: user.phone_number,
-        email: user.email,
       };
       let result = await axios.post(
         "http://localhost:7070/order/createOrder",
         paymentRes
       );
+      if (result.status === 200) {
+        sessionStorage.removeItem("cart");
+      }
       let razorOrderId = result.data.razorpayOrderId;
       console.log("----->", result, razorOrderId);
 
@@ -88,10 +110,6 @@ function Cart() {
         description: "Purchase Basic Service",
         order_id: result.data.id,
         handler: async function (response) {
-          alert(
-            "Payment Successful! Payment ID: " + response.razorpay_payment_id
-          );
-
           navigate("/payment-success", { state: { razorOrderId } });
         },
         prefill: {
@@ -119,7 +137,7 @@ function Cart() {
     }
   };
   const deleteHandler = () => {
-    localStorage.clear();
+    sessionStorage.clear();
     navigate("/car-service");
   };
   // Function to get the next 4 days
@@ -174,8 +192,8 @@ function Cart() {
   };
 
   const { morningSlots, afternoonSlots, eveningSlots } = getTimeSlots();
-  const getCartFromlocalStorage = () => {
-    let cart = JSON.parse(localStorage.getItem("cart"));
+  const getCartFromsessionStorage = () => {
+    let cart = JSON.parse(sessionStorage.getItem("cart"));
     if (cart) {
       console.log(cart);
       setCartdata(cart);
@@ -184,8 +202,17 @@ function Cart() {
     }
   };
   useEffect(() => {
-    getCartFromlocalStorage();
+    getCartFromsessionStorage();
   }, []);
+
+  const getAddressDetails = (line1, line2, city, state) => {
+    console.log("getting address in Cart ");
+    setStreet(line1);
+    setArea(line2);
+    setCity(city);
+    setState(state);
+    console.log(street, area, city, state);
+  };
   return (
     <div>
       {cartdata.length === 0 ? (
@@ -202,7 +229,7 @@ function Cart() {
             <div className="row">
               <div className="col-md-8">
                 <div className="date-time-section">
-                  <h2>Select Delivery Date</h2>
+                  <h2>Select Pick Up Date</h2>
                   {/* Delivery date */}
                   <div className="date-box-container">
                     {next4Days.map((day, index) => (
@@ -275,7 +302,7 @@ function Cart() {
                     </div>
                   </div>
                   <h2>Add Address</h2>
-                  <AddressSection />
+                  <AddressSection addAddress={getAddressDetails} />
                 </div>
               </div>
               <div className="col-md-4 bill-container">

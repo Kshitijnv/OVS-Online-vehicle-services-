@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import "./AddressSection.css";
 import { API_KEY } from "./config";
 
-const AddressSection = () => {
+const AddressSection = (props) => {
   const [street, setStreet] = useState("");
   const [area, setArea] = useState("");
   const [states, setStates] = useState([]);
@@ -14,9 +14,9 @@ const AddressSection = () => {
   // Fetch the list of states
   useEffect(() => {
     const headers = new Headers();
-    headers.append('X-CSCAPI-KEY', API_KEY);
+    headers.append("X-CSCAPI-KEY", API_KEY);
     fetch("https://api.countrystatecity.in/v1/countries/IN/states", {
-      headers: headers
+      headers: headers,
     })
       .then((response) => response.json())
       .then((data) => {
@@ -24,7 +24,7 @@ const AddressSection = () => {
         const formattedStates = data.map((state) => ({
           id: state.id,
           name: state.name,
-          code: state.iso2 // Assuming this is the code you want to use
+          code: state.iso2, // Assuming this is the code you want to use
         }));
         setStates(formattedStates);
       })
@@ -36,11 +36,14 @@ const AddressSection = () => {
     if (selectedState) {
       setLoadingCities(true);
       const headers = new Headers();
-      headers.append('X-CSCAPI-KEY', API_KEY);
+      headers.append("X-CSCAPI-KEY", API_KEY);
       // Fetching cities based on the selected state code
-      fetch(`https://api.countrystatecity.in/v1/countries/IN/states/${selectedState}/cities`, {
-        headers: headers
-      })
+      fetch(
+        `https://api.countrystatecity.in/v1/countries/IN/states/${selectedState}/cities`,
+        {
+          headers: headers,
+        }
+      )
         .then((response) => response.json())
         .then((data) => {
           setCities(data);
@@ -52,7 +55,9 @@ const AddressSection = () => {
         });
     }
   }, [selectedState]);
-
+  const saveAddress = () => {
+    props.addAddress(street, area, selectedCity, selectedState);
+  };
   return (
     <table className="address-section">
       <tbody>
@@ -103,7 +108,7 @@ const AddressSection = () => {
         </tr>
         <tr>
           <td>
-            <label htmlFor="street">Street:</label>
+            <label htmlFor="street">Address Line 1:</label>
           </td>
           <td>
             <input
@@ -117,7 +122,7 @@ const AddressSection = () => {
         </tr>
         <tr>
           <td>
-            <label htmlFor="area">Area:</label>
+            <label htmlFor="area">Address Line 2:</label>
           </td>
           <td>
             <input
@@ -127,6 +132,13 @@ const AddressSection = () => {
               onChange={(e) => setArea(e.target.value)}
               placeholder="Enter area"
             />
+          </td>
+        </tr>
+        <tr>
+          <td>
+            <button className="button" onClick={saveAddress}>
+              Add Address
+            </button>
           </td>
         </tr>
       </tbody>

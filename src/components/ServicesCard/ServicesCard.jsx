@@ -1,28 +1,48 @@
 import { CiClock2 } from "react-icons/ci";
 import { IoIosStar } from "react-icons/io";
 import { useAuth0 } from "@auth0/auth0-react";
-
-import { ToastContainer, toast } from "react-toastify";
-import "react-toastify/dist/ReactToastify.css";
-
+import { toast } from "react-toastify";
 import "./Services.css";
+import { useState, useEffect } from "react";
+
 function ServicesCard(props) {
   const { loginWithRedirect, isAuthenticated } = useAuth0();
+  const [inCart, setInCart] = useState(false);
+  const [specsArray, setSpecsArray] = useState([]);
+
+  useEffect(() => {
+    let cart = JSON.parse(sessionStorage.getItem("cart"));
+    if (cart && cart.serviceId === props.serviceId) {
+      setInCart(true);
+    }
+    let specArr = JSON.parse(props.specifications);
+    setSpecsArray([...specArr]);
+  }, [props]);
 
   const handleAddToCart = () => {
     if (isAuthenticated) {
-      let cart = JSON.parse(localStorage.getItem("cart"));
+      let cart = JSON.parse(sessionStorage.getItem("cart"));
       if (cart) {
-        if (cart.id === props.id) {
+        if (cart.serviceId === props.serviceId) {
           // alert("!!!!Service is Already added to the cart!!!!, go to the cart");
           toast.warning("Service is Already added to the cart", {
             position: "top-center",
             autoClose: 3000,
+            hideProgressBar: false,
+            closeOnClick: true,
+            pauseOnHover: false,
+            draggable: true,
+            progress: undefined,
           });
         } else {
           toast.error("Only 1 Service can be choosen at a time", {
             position: "top-center",
             autoClose: 3000,
+            hideProgressBar: false,
+            closeOnClick: true,
+            pauseOnHover: false,
+            draggable: true,
+            progress: undefined,
           });
         }
       } else {
@@ -38,11 +58,14 @@ function ServicesCard(props) {
           progress: undefined,
         });
         console.log(cart);
+        sessionStorage.setItem("cart", JSON.stringify(cart));
+        setInCart(true);
       }
-      localStorage.setItem("cart", JSON.stringify(cart));
     } else {
       // User is not logged in, redirect to login and set returnUrl
-      loginWithRedirect();
+      loginWithRedirect({
+        redirectUri: "http://localhost:3000/car-service",
+      });
     }
   };
   return (
@@ -71,7 +94,7 @@ function ServicesCard(props) {
             {/* Specifications */}
             <div className="specs-list-container">
               <ul className="list">
-                {props.specs.map((specification, index) => (
+                {specsArray.map((specification, index) => (
                   <li key={index}>
                     <IoIosStar /> {specification}
                   </li>
@@ -82,17 +105,20 @@ function ServicesCard(props) {
           <div className="col-md-2 right-container">
             <div className="hours-taken">
               <CiClock2 />
-              {props.time} hours taken
+              {props.duration} hours taken
             </div>
             <div className="d-flex align-items-center justify-content-end">
-              <button className="button" onClick={handleAddToCart}>
-                Add to Cart
+              <button
+                className={inCart ? "cartButton" : "button"}
+                onClick={handleAddToCart}
+                disabled={inCart}
+              >
+                {inCart ? "Added in the Cart" : "Add to Cart"}
               </button>
             </div>
           </div>
         </div>
       </div>
-      <ToastContainer />
     </>
   );
 }

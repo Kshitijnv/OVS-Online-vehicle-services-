@@ -24,7 +24,6 @@ const PaymentSuccess = () => {
         setIsLoading(false); // Hide loading indicator
       }
     };
-
     fetchOrderDetails();
   }, [orderId]);
   // Display order details dynamically
