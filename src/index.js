@@ -9,19 +9,17 @@ import "bootstrap/dist/css/bootstrap.min.css";
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
-  <React.StrictMode>
-    <BrowserRouter>
-      <Auth0Provider
-        domain="dev-80ypurmlr3p51xjt.us.auth0.com"
-        clientId="rSw0PW1OqqP7gmgpe6XNTeBgdRQz9DZP"
-        authorizationParams={{
-          redirect_uri: window.location.origin,
-        }}
-      >
-        <App />
-      </Auth0Provider>
-    </BrowserRouter>
-  </React.StrictMode>
+  <BrowserRouter>
+    <Auth0Provider
+      domain="dev-80ypurmlr3p51xjt.us.auth0.com"
+      clientId="rSw0PW1OqqP7gmgpe6XNTeBgdRQz9DZP"
+      authorizationParams={{
+        redirect_uri: window.location.origin,
+      }}
+    >
+      <App />
+    </Auth0Provider>
+  </BrowserRouter>
 );
 
 // If you want to start measuring performance in your app, pass a function

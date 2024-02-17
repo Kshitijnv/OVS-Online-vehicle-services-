@@ -1,63 +1,106 @@
-import { TiSocialFacebook } from "react-icons/ti";
-import { SlSocialInstagram } from "react-icons/sl";
-import { TiSocialTwitter } from "react-icons/ti";
-import { TiSocialYoutube } from "react-icons/ti";
-import { FaCar } from "react-icons/fa";
-import { MdOutlineMailOutline } from "react-icons/md";
-import { MdOutlineLocalPhone } from "react-icons/md";
-import { VscCalendar } from "react-icons/vsc";
-import { IoMdTime } from "react-icons/io";
 import "./Footer.css";
+import { Link } from "react-router-dom";
+import React from 'react';
+
+
 function Footer() {
   return (
     <>
       <footer>
-        <h2>
-          <FaCar /> Mr Buddy
-        </h2>
-        <p>Pashan panchavati Acts CDAC Innovation park, pune</p>
-        <div className="social">
-          <TiSocialFacebook />
-          <SlSocialInstagram />
-          <TiSocialTwitter />
-          <TiSocialYoutube />
+        <div className="content">
+          <div className="top">
+            <div className="logo-details">
+              <i className="fab fa-slack"></i>
+              <span className="logo_name">Mr Buddy</span>
+            </div>
+            <div className="media-icons">
+              <Link to="#">
+                <i className="fab fa-facebook-f"></i>
+              </Link>
+              <Link to="#">
+                <i className="fab fa-twitter"></i>
+              </Link>
+              <Link to="#">
+                <i className="fab fa-instagram"></i>
+              </Link>
+              <Link to="#">
+                <i className="fab fa-linkedin-in"></i>
+              </Link>
+              <Link to="#">
+                <i className="fab fa-youtube"></i>
+              </Link>
+            </div>
+          </div>
+          <div className="link-boxes">
+            <ul className="box">
+              <li className="link_name">Company</li>
+              <li>
+                <Link to="/">Home</Link>
+              </li>
+              <li>
+                <Link to="/contact-us">Contact us</Link>
+              </li>
+              <li>
+                <Link to="#">About us</Link>
+              </li>
+              <li>
+                <Link to="#">Get started</Link>
+              </li>
+            </ul>
+            <ul className="box">
+              <li className="link_name">Services</li>
+              <li>
+                <Link to="/car-service">AC Services</Link>
+              </li>
+              <li>
+                <Link to="/car-service">Scheduled Services</Link>
+              </li>
+              <li>
+                <Link to="/car-service">Denting Painting</Link>
+              </li>
+              <li>
+                <Link to="/car-service">Lights & Fitments</Link>
+              </li>
+            </ul>
+            <ul className="box">
+              <li className="link_name">Account</li>
+              <li>
+                <Link to="#">Profile</Link>
+              </li>
+              <li>
+                <Link to="#">My account</Link>
+              </li>
+              <li>
+                <Link to="#">Prefrences</Link>
+              </li>
+              <li>
+                <Link to="#">Purchase</Link>
+              </li>
+            </ul>
+            <ul className="box input-box">
+              <li className="link_name">Subscribe</li>
+              <li>
+                <input type="text" placeholder="Enter your email" />
+              </li>
+              <li>
+                <input type="button" value="Subscribe" />
+              </li>
+            </ul>
+          </div>
         </div>
-
-        <table>
-          <tbody>
-            <tr>
-              <td>
-                <MdOutlineMailOutline />
-                Email
-              </td>
-              <td>abc@gmail.com</td>
-            </tr>
-            <tr>
-              <td>
-                <MdOutlineLocalPhone />
-                Phone
-              </td>
-              <td>123-456-7890</td>
-            </tr>
-            <tr>
-              <td>
-                <VscCalendar />
-                Working Days
-              </td>
-              <td>Monday-Sunday</td>
-            </tr>
-            <tr>
-              <td>
-                <IoMdTime />
-                Working Hours
-              </td>
-              <td>7:00AM - 9:00PM(IST)</td>
-            </tr>
-          </tbody>
-        </table>
-        <p>&copy; 2024 Online Vehicle Service All rights reserved</p>
+        <div className="bottom-details">
+          <div className="bottom_text">
+            <span className="copyright_text">
+              Copyright © 2024 <Link to="#">Mr Buddy </Link>All rights reserved
+            </span>
+            <span className="policy_terms">
+              <Link to="#">Privacy policy</Link>
+              <Link to="#">Terms & condition</Link>
+            </span>
+          </div>
+        </div>
       </footer>
-    </>
+         </>
   );
 }
 
