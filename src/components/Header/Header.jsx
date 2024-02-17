@@ -1,13 +1,26 @@
+<<<<<<< HEAD
 import React, { useEffect } from "react";
+=======
+import React, { useState } from "react";
+>>>>>>> 16d397cd30d4f6e8ba0a1ee52ad9ab819844848d
 import "./Header.css";
 import { useAuth0 } from "@auth0/auth0-react";
 import axios from "axios";
 import { Link } from "react-router-dom";
+
 const Header = () => {
   const { loginWithRedirect, isAuthenticated, logout, user } = useAuth0();
+<<<<<<< HEAD
   // const [cartDetails, setCartDetails] = useState(null);
   useEffect(() => {
     console.log("component render");
+=======
+  const [showCard, setShowCard] = useState(false);
+
+  const handleCardToggle = () => {
+    setShowCard(!showCard);
+  };
+>>>>>>> 16d397cd30d4f6e8ba0a1ee52ad9ab819844848d
 
     if (isAuthenticated) {
       // Store user information in sessionStorage
@@ -59,20 +72,38 @@ const Header = () => {
   };
   return (
     <section className="h-wrapper">
-      <div className="flexCenter paddings innerWidth h-container">
+      <div className="h-container">
         <Link to="/">
           <img src="./Images/Brandlogo.png" alt="logo" width={100} />
         </Link>
         <nav className="flexCenter h-menu">
-          <Link to="/car-service">Car services</Link>
+          <Link to="/car-selector">Car services</Link>
           <Link to="#">Insurance claim</Link>
           <Link to="#">Blog</Link>
           <Link to="#">Vehicle lab</Link>
+<<<<<<< HEAD
           {isAuthenticated && <p> Welcome, {user.name} </p>}
           {isAuthenticated ? (
             <button onClick={handleLogout}>Log Out</button>
           ) : (
             <button onClick={loginHandler}>Log In</button>
+=======
+          {isAuthenticated && (
+            <div className="welcome-box" onMouseEnter={handleCardToggle} onMouseLeave={handleCardToggle}>
+              
+                <span> Welcome, {user.name} </span>
+        
+              {showCard && (
+                <div className="card">
+                  <Link to="/profile">Profile</Link>
+                  <Link to="/order-history">Order History</Link>
+                  <Link to="/my-cars">My Cars</Link>
+                  <Link to="/ManageAddress">Manage Address</Link>
+                  <button onClick={() => logout({ logoutParams: { returnTo: window.location.origin } })}>Log Out</button>
+                </div>
+              )}
+            </div>
+>>>>>>> 16d397cd30d4f6e8ba0a1ee52ad9ab819844848d
           )}
           {isAuthenticated && <Link to="/cart">Cart</Link>}
         </nav>

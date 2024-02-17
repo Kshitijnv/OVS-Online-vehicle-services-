@@ -1,5 +1,7 @@
 import "./Footer.css";
 import { Link } from "react-router-dom";
+import React from 'react';
+
 
 function Footer() {
   return (
@@ -26,9 +28,12 @@ function Footer() {
               </Link>
               <Link to="#">
                 <i className="fab fa-youtube"></i>
+<<<<<<< HEAD
               </Link>
               <Link>
                 <i className="fab fa-github"></i>
+=======
+>>>>>>> 16d397cd30d4f6e8ba0a1ee52ad9ab819844848d
               </Link>
             </div>
           </div>
@@ -39,7 +44,7 @@ function Footer() {
                 <Link to="/">Home</Link>
               </li>
               <li>
-                <Link to="#">Contact us</Link>
+                <Link to="/contact-us">Contact us</Link>
               </li>
               <li>
                 <Link to="#">About us</Link>
@@ -101,7 +106,11 @@ function Footer() {
           </div>
         </div>
       </footer>
+<<<<<<< HEAD
     </>
+=======
+         </>
+>>>>>>> 16d397cd30d4f6e8ba0a1ee52ad9ab819844848d
   );
 }
 
