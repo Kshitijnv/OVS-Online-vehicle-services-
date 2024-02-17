@@ -4,11 +4,13 @@
     padding: 20px;
     border: 1px solid #00050a;
     border-radius: 5px;
-    width: max-content;
+    width: 400px;
     margin-top: 40px;
     margin-bottom: 70px;
-    background-color: aqua;
-    margin-left: 575px;
+    background-color: rgb(214, 171, 233);
+    margin: auto;
+    margin-bottom: 50px;
+    margin-top: 20px;
   }
   
   .address-box span {
@@ -35,9 +37,11 @@
   .mng-add-title{
     color: mediumvioletred;
     padding-top: 20px;
+    text-decoration: underline;
   }
 
-.span{
-    align-items: center;
+.span1{
+    text-align: center;
+     margin-left: 90px;
 }
 
