@@ -11,7 +11,7 @@ const Header = () => {
           <img src="./Images/Brandlogo.png" alt="logo" width={100} />
         </Link>
         <nav className="flexCenter h-menu">
-          <Link to="/car-service">Car services</Link>
+          <Link to="/car-selector">Car services</Link>
           <Link to="#">Insurance claim</Link>
           <Link to="#">Blog</Link>
           <Link to="#">Vehicle lab</Link>
