@@ -13,8 +13,6 @@ const MyCars = () => {
       kilometers: 40000,
     },
     {
-      
-
       imageUrl: "./Images/Maruti_Suzuki_FRONX.jpg",
       modelName: "Maruti Suzuki FRONX",
       registrationNumber: "MH20-5264",
