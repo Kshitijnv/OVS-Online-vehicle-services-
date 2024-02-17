@@ -11,6 +11,7 @@ import OrderHistory from "./components/OrderHistory/OrderHistory";
 import MyCars from "./components/MyCars/MyCars";
 import ManageAddress from "./components/ManageAddress/ManageAddress";
 import ContactUs from "./components/ContactUs/ContactUs";
+import CarSelectionPage from "./components/CarSelector/CarSelector";
 
 
 
@@ -29,6 +30,7 @@ function App() {
         <Route path="/my-cars" element={<MyCars />} />
         <Route path="/ManageAddress" element={<ManageAddress />} />
         <Route path="/ContactUs" element={<ContactUs />} />
+        <Route path="/car-selector" element={<CarSelectionPage/>} />
       </Routes>
       <Footer />
     </div>
