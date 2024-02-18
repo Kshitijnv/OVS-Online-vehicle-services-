@@ -87,3 +87,11 @@
   flex-basis: calc(50% - 20px); /* Two specifications per row with margin */
   box-sizing: border-box;
 }
+.cartButton{
+  font-weight: 500;
+  padding: 0.6rem 1.4rem;
+  color:blue;
+  background: var(--lightBlue);
+  border: none;
+  border-radius: 4px;
+}

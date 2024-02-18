@@ -20,11 +20,11 @@ const Hero = () => {
           <div className="flexColStart hero-des">
             <span> find the best car care service for your vehicle.</span>
           </div>
-          <div className="flexCenter search-bar">
+          {/* <div className="flexCenter search-bar">
             <HiLocationMarker color="var(--blue)" size={25} className="icon" />
             <input type="text" />
             <button className="button">search</button>
-          </div>
+          </div> */}
           <div className="flexCenter stats">
             <div className="flexColStart stat">
               <span>

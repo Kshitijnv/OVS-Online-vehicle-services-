@@ -1,95 +1,118 @@
-import { FaClock, FaCalendarAlt } from "react-icons/fa"; // Import clock and calendar icons
-import React from "react";
-import "./OrderHistory.css"; // Import the styles
+import { FaClock, FaCalendarAlt } from "react-icons/fa";
+import React, { useEffect, useState } from "react";
+import "./OrderHistory.css";
 import { Link } from "react-router-dom";
+import { useAuth0 } from "@auth0/auth0-react";
+import axios from "axios";
 
 const OrderHistory = () => {
-  // Placeholder data for ongoing and completed orders
-  const ongoingOrders = [
-    {
-      imageUrl: "./Images/Mahindra_Thar.jpg",
-      modelName: "Mahindra Thar",
-      fuelType: "Petrol",
-      price: 1000,
-      slot: "2022-02-14 10:00 AM",
-      detailsLink: "/order-details/1",
-      status: "In Progress",
-    },
-    // Add more ongoing orders as needed
-  ];
+  const { user } = useAuth0();
+  const [orders, setOrders] = useState([]);
 
-  const completedOrders = [
-    {
-      imageUrl: "./Images/Maruti_Suzuki_FRONX.jpg",
-      modelName: "Maruti Suzuki FRONX",
-      fuelType: "CNG",
-      price: 1500,
-      slot: "2022-02-12 02:30 PM",
-      detailsLink: "/order-details/2",
-      status: "Completed",
-    },
-    // Add more completed orders as needed
-  ];
+  useEffect(() => {
+    async function fetchData() {
+      try {
+        const response = await axios.get(
+          `http://localhost:7070/appointments/all/${user.email}`
+        );
 
-  const renderSlotBox = (slot) => (
-    <div className="slot-box">
-      <div className="slot-time">
-        <FaClock /> {slot.split(" ")[1]} {/* Extracting time from the slot */}
+        // Sort orders by date:
+        const sortedOrders = response.data.sort((a, b) => {
+          // Assuming pickUpDate is a string representing a date
+          return new Date(a.pickUpDate) - new Date(b.pickUpDate);
+        });
+
+        setOrders(sortedOrders);
+      } catch (error) {
+        console.error("Error fetching orders:", error);
+      }
+    }
+    fetchData();
+  }, [user.email]);
+
+  const renderSlotBox = (dateString, timeString) => {
+    try {
+      const timeObject = JSON.parse(timeString);
+
+      // Extracting startTime and endTime
+      const { startTime, endTime } = timeObject;
+
+      return (
+        <div className="slot-box">
+          <div className="slot-time">
+            <FaClock /> {`${startTime}:00 - ${endTime}:00`}
+          </div>
+          <div className="slot-date">
+            <FaCalendarAlt /> {dateString}
+          </div>
+        </div>
+      );
+    } catch (error) {
+      console.error("Error parsing JSON:", error);
+      return null;
+    }
+  };
+
+  const renderOrder = (order) => {
+    const {
+      vehicle: { manufacturer, yearOfManufacturer, fuelType },
+      bill: { applicationFee },
+      pickUpDate,
+      pickUpTime,
+      status,
+      id,
+    } = order;
+
+    const orderCategory =
+      status === "BOOKED" ? "ongoing-orders" : "completed-orders";
+
+    return (
+      <div key={id} className={`order-item ${orderCategory} card mb-3`}>
+        <div className="order-details card-body">
+          <p className="card-title h5">
+            <strong>Model Name:</strong> {manufacturer}
+          </p>
+          <p>
+            <strong>Manufacturer Year:</strong> {yearOfManufacturer}
+          </p>
+          <p>
+            <strong>Fuel Type: </strong> {fuelType}
+          </p>
+          <p>
+            <strong>Price:</strong> Rs.{applicationFee}
+          </p>
+          <Link to={`/order-details/${id}`} className="button details-button">
+            Details
+          </Link>
+          <hr />
+          <p className="slot card-subtitle mb-2 text-muted">Selected Slot</p>
+          {renderSlotBox(pickUpDate, pickUpTime)}
+          <p>
+            <strong>Status:</strong>{" "}
+            <span className={`status ${status.toLowerCase()}`}>{status}</span>
+          </p>
+        </div>
       </div>
-      <div className="slot-date">
-        <FaCalendarAlt /> {slot.split(" ")[0]} {/* Extracting date from the slot */}
-      </div>
-    </div>
-  );
+    );
+  };
 
   return (
-    <div className="order-history-container">
+    <div className="order-history-container container mt-4">
       <div className="order-history-header">
-        <h2 className="order-history-title">Order History</h2>
-        <Link to="/" className="btn-home">
-          Home
-        </Link>
+        <h2>Order History</h2>
       </div>
       <div className="order-history-content">
         <div className="ongoing-orders">
-          <h3 className="orders">Ongoing Orders</h3>
-          <hr></hr>
-          {ongoingOrders.map((order, index) => (
-            <div key={index} className="order-item">
-              <img src={`${process.env.PUBLIC_URL}${order.imageUrl}`} alt={`Car ${index + 1}`} />
-              <div className="order-details">
-                <p>Model Name: <strong>{order.modelName}</strong></p>
-                <p>Fuel Type: {order.fuelType}</p>
-                <p>Price: <strong>Rs.{order.price}</strong></p>
-                <Link to={order.detailsLink}>Details</Link>
-                <hr></hr>
-                <p className="slot">Selected Slot</p>
-                {renderSlotBox(order.slot)}
-                
-                <p>Status: <span className="status">{order.status}</span></p>
-              </div>
-            </div>
-          ))}
+          <h3>Ongoing Orders</h3>
+          <hr />
+          {orders.filter((order) => order.status === "BOOKED").map(renderOrder)}
         </div>
         <div className="completed-orders">
-          <h3 className="orders">Completed Orders</h3>
-          <hr></hr>
-          {completedOrders.map((order, index) => (
-            <div key={index} className="order-item">
-              <img src={`${process.env.PUBLIC_URL}${order.imageUrl}`} alt={`Car ${index + 1}`} />
-              <div className="order-details">
-                <p>Model Name: <strong>{order.modelName}</strong></p>
-                <p>Fuel Type: {order.fuelType}</p>
-                <p>Price: <strong>Rs.{order.price}</strong></p>
-                <Link to={order.detailsLink}>Details</Link>
-                <hr></hr>
-                <p className="slot">Selected Slot</p>
-                {renderSlotBox(order.slot)}
-                
-                <p>Status: <span className="status">{order.status}</span></p>
-              </div>
-            </div>
-          ))}
+          <h3>Completed Orders</h3>
+          <hr />
+          {orders
+            .filter((order) => order.status === "COMPLETED")
+            .map(renderOrder)}
         </div>
       </div>
     </div>

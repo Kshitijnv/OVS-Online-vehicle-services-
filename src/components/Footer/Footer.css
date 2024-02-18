@@ -1,7 +1,7 @@
 
   @import url("https://fonts.googleapis.com/css2?family=Poppins:wght@200;300;400;500;600;700&display=swap");
   footer {
-    background: #131110;
+    background: #082b6cde;
     width: 100%;
     bottom: 0;
     left: 0;
@@ -13,7 +13,6 @@
     top: 100px;
     height: 1px;
     width: 100%;
-    background: #afafb6;
   }
   footer .content {
     max-width: 1250px;
@@ -80,6 +79,13 @@
     color: #ff0000;
     background: #fff;
   }
+  .top .media-icons a:nth-child(6){
+    background: #3824d2;
+  }
+  .top .media-icons a:nth-child(6):hover{
+    color: #3824d2;
+    background: #fff;
+  }
   footer .content .link-boxes {
     width: 100%;
     display: flex;
@@ -98,7 +104,6 @@
   .link-boxes .box .link_name::before {
     content: "";
     position: absolute;
-    left: 0;
     bottom: -2px;
     height: 2px;
     width: 35px;

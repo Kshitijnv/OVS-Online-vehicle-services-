@@ -65,7 +65,7 @@
   .order-button-container {
     margin: 1rem;
     display: flex;
-    justify-content: end;
+    justify-content: flex-end;
   }
   .error-message {
     color: red;  /* or any other color you prefer */
