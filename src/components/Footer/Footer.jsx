@@ -1,7 +1,6 @@
 import "./Footer.css";
 import { Link } from "react-router-dom";
-import React from 'react';
-
+import React from "react";
 
 function Footer() {
   return (
@@ -28,12 +27,9 @@ function Footer() {
               </Link>
               <Link to="#">
                 <i className="fab fa-youtube"></i>
-<<<<<<< HEAD
               </Link>
-              <Link>
+              <Link to="#">
                 <i className="fab fa-github"></i>
-=======
->>>>>>> 16d397cd30d4f6e8ba0a1ee52ad9ab819844848d
               </Link>
             </div>
           </div>
@@ -44,7 +40,7 @@ function Footer() {
                 <Link to="/">Home</Link>
               </li>
               <li>
-                <Link to="/contact-us">Contact us</Link>
+                <Link to="/ContactUs">Contact us</Link>
               </li>
               <li>
                 <Link to="#">About us</Link>
@@ -71,16 +67,16 @@ function Footer() {
             <ul className="box">
               <li className="link_name">Account</li>
               <li>
-                <Link to="#">Profile</Link>
+                <Link to="/profile">Profile</Link>
               </li>
               <li>
-                <Link to="#">My account</Link>
+                <Link to="/order-history">Order History</Link>
               </li>
               <li>
-                <Link to="#">Prefrences</Link>
+                <Link to="/my-cars">My Cars Collection</Link>
               </li>
               <li>
-                <Link to="#">Purchase</Link>
+                <Link to="/ManageAddress">Manage Address</Link>
               </li>
             </ul>
             <ul className="box input-box">
@@ -106,11 +102,7 @@ function Footer() {
           </div>
         </div>
       </footer>
-<<<<<<< HEAD
     </>
-=======
-         </>
->>>>>>> 16d397cd30d4f6e8ba0a1ee52ad9ab819844848d
   );
 }
 

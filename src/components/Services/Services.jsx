@@ -30,7 +30,7 @@ function Services() {
         services.map((service, index) => (
           <ServicesCard
             key={index}
-            serviceId={service.serviceId}
+            serviceId={service.id}
             price={service.price}
             name={service.name}
             specifications={service.specifications}

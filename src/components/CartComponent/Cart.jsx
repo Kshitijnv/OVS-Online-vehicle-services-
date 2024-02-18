@@ -69,28 +69,19 @@ function Cart() {
       }
 
       let paymentRes = {
-        // order_id: orderId,
+        username: user.sub,
+        pickUpDate: JSON.stringify(selectedDate),
+        pickUpTime: JSON.stringify(selectedTimeSlot),
         amount: servicePrice,
-        user: {
-          username: user.name,
-          phoneNumber: user.phone_number,
-          emailId: user.email,
-          serviceId: JSON.parse(sessionStorage.getItem("cart")),
-        },
-        appointment: {
-          status: "PENDING",
-          pickUpDate: JSON.stringify(selectedDate),
-          pickUpTime: JSON.stringify(selectedTimeSlot),
-        },
         address: {
           adrLine1: street,
           adrLine2: area,
           city: city,
           state: state,
         },
-
-        currency: "INR",
-        payment_capture: 1,
+        serviceId: cartdata.serviceId,
+        vehicle: JSON.parse(localStorage.getItem("vehicle")),
+        isNewAddress: true,
       };
       let result = await axios.post(
         "http://localhost:7070/order/createOrder",

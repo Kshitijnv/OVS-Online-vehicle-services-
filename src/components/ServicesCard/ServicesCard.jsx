@@ -80,7 +80,7 @@ function ServicesCard(props) {
             />
             <div>
               <span className="original-price text-muted strikethrough">
-                Rs.{props.price - 400}
+                Rs.{props.price + 400}
               </span>
               &nbsp;&nbsp;
               {/* Discounted Price */}

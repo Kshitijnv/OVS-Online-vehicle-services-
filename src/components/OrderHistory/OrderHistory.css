@@ -1,83 +1,105 @@
+
+
 .order-history-container {
-    margin: 0 auto;
-    padding: 20px;
-    justify-content: center;
-  }
-  
-  .order-history-header {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    margin-bottom: 20px;
-  }
-  
-  .order-history-title {
-    margin: 0;
-  }
-  
-  .btn-home {
-    background-color: #3498db;
-    color: #fff;
-    padding: 10px 15px;
-    text-decoration: none;
-    border-radius: 5px;
-  }
-  
-  .order-history-content {
-    display: flex;
-    padding: 50px;
-  }
-  
-  
-  .orders {
-    color: darkmagenta;
-    
-  }
-  
-  .order-item {
-    display: flex;
-    margin-bottom: 20px;
-    border: 1px solid #ddd;
-    padding: 10px;
-    border-radius: 10px;
-    border: solid;
-    border-color: black;
-  }
-  
-  .order-item img {
-    width: 80px;
-    height: 80px;
-    margin-right: 10px;
-  }
-  
-  .order-details {
-    text-align: left;
-  }
-  
-  .order-details p {
-    margin: 5px 0;
-    text-align: left;
-  }
-  
-  .order-details a {
-    color: #3498db;
-    text-decoration: none;
-    margin-right: 10px;
-  }
-  
-  .order-details a:hover {
-    text-decoration: underline;
-  }
+  max-width: 1024px; /* Set a maximum width for responsiveness */
+  margin: 0 auto;
+  padding: 20px;
+  justify-content: center;
+}
 
-  .slot {
-    color: red;
-  }
+.order-history-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20px;
+}
 
-  .status {
-        color: green;
-  }
+.order-history-title {
+  font-size: 1.5rem;
+  margin: 0;
+}
 
-  .ongoing-orders{
-    margin-right: 100px;
-    
-  }
+.order-history-content {
+  display: flex;
+  flex-wrap: wrap; /* Allow wrapping for smaller screens */
+  gap: 30px; /* Add spacing between orders */
+  padding: 0 20px; 
+}
+
+.order-item {
+  display: flex;
+  flex-direction: column; /* Stack information vertically */
+  padding: 20px;
+  border: 1px solid #ddd;
+  border-radius: 10px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1); /* Subtle shadow for depth */
+}
+
+.order-item img {
+  width: 80px;
+  height: 80px;
+  margin-bottom: 10px;
+  border-radius: 50%; /* Round image corners */
+}
+
+.order-details {
+  flex: 1; /* Allow details to fill available space */
+  text-align: left;
+}
+
+.order-details p {
+  margin: 5px 0;
+  text-align: left;
+  font-size: 0.9rem; /* Adjust font size as needed */
+}
+
+.order-details a {
+ margin-top: 1rem;
+  text-decoration: none;
+  
+}
+
+.order-details a:hover {
+  text-decoration: underline;
+}
+
+.slot {
+  display: flex;
+  align-items: center;
+  margin-bottom: 5px;
+}
+
+.slot-icon {
+  margin-right: 5px;
+  font-size: 1.2rem;
+  color: inherit; /* Inherit color from parent */
+}
+
+.status {
+  font-weight: bold;
+  text-transform: uppercase; 
+}
+.booked{
+  color: green;
+}
+.completed{
+  color: rgb(0, 233, 249);
+}
+.cancelled{
+  color: red;
+}
+.ongoing-orders,
+.completed-orders {
+  max-width: 1024px; /* Set a maximum width for responsiveness */
+  flex: 1; /* Make each section take up half the space */
+  margin-bottom: 30px; /* Add some spacing between sections */
+}
+.details-button{
+  margin: 0;
+  width: fit-content;
+}
+.card-body{
+  display: flex;
+  flex-direction: column;
+
+}
