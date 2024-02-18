@@ -1,27 +1,26 @@
 import React from 'react';
 import './ContactUs.css';
-
+import { FaUser, FaEnvelope, FaMobileAlt } from 'react-icons/fa';
 const ContactUs = () => {
   return (
     
     <div className="contact-container">
       <div className="contact-form">
-      <h2>Contact Us</h2>
+      <h2>Send us a message</h2>
         <form>
           <div className="form-group">
-            
+          <FaUser className="icon" style={{ color: 'green', fontSize: '24px' }}/>
             <input type="text" id="fullName" name="fullName" placeholder="Full Name" required />
           </div>
           <div className="form-group">
-            
+          <FaEnvelope className="icon" style={{ color: 'green', fontSize: '24px' }}/>
             <input type="email" id="email" name="email" placeholder="Email" required />
           </div>
           <div className="form-group">
-           
+          <FaMobileAlt className="icon" style={{ color: 'green', fontSize: '24px' }}/>
             <input type="tel" id="mobile" name="mobile" placeholder="Mobile" required />
           </div>
-          <div className="form-group">
-           
+          <div className="form-group">&emsp;&emsp;&ensp;
             <textarea id="message" name="message" rows="4" placeholder="Message" required></textarea>
           </div>
           <button type="submit" style={{ backgroundColor: 'green' }} >Send Message</button>

@@ -12,8 +12,6 @@ import MyCars from "./components/MyCars/MyCars";
 import ManageAddress from "./components/ManageAddress/ManageAddress";
 import ContactUs from "./components/ContactUs/ContactUs";
 
-
-
 function App() {
   return (
     <div className="App">

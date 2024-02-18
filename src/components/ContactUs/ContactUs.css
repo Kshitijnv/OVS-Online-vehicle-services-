@@ -40,11 +40,15 @@
     border: none;
     border-radius: 5px;
     cursor: pointer;
+    margin-bottom: 20px;
   }
   
   .contact-info {
-    width: 45%;
-    margin-top: 50px;
+    width: 60%;
+    background-color: rgb(241, 158, 241);
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
   }
   
   .contact-info h2 {
@@ -55,7 +59,7 @@
     display: flex;
     align-items: center;
     margin-bottom: 15px;
-    margin-left: 200px;
+    margin-left: 250px;
   }
   
   .info-item i {
@@ -63,9 +67,14 @@
   }
   
   .ourlocationtitle{
-  padding-left: 0px; ;
+  margin-top: 30px;
   }
 
   .far fa-envelope{
     color: rgb(32, 207, 32);
   }
+
+  .contact-title{
+    text-align: center;
+  }
+
