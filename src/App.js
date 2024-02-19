@@ -14,6 +14,7 @@ import MyCars from "./components/MyCars/MyCars";
 import ManageAddress from "./components/ManageAddress/ManageAddress";
 import ContactUs from "./components/ContactUs/ContactUs";
 import CarSelectionPage from "./components/CarSelector/CarSelector";
+import Appointment from "./components/Appointments/Appointment";
 
 function App() {
   return (
@@ -32,6 +33,7 @@ function App() {
         <Route path="/ManageAddress" element={<ManageAddress />} />
         <Route path="/ContactUs" element={<ContactUs />} />
         <Route path="/car-selector" element={<CarSelectionPage />} />
+        <Route path="/appointments" element={<Appointment />} />
       </Routes>
       <Footer />
     </div>

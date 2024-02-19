@@ -6,7 +6,17 @@
   height: 40vmin;
   pointer-events: none;
 }
+::-webkit-scrollbar{
+width: 5px;
+}
+::-webkit-scrollbar-track{
+background-color: rgba(0, 0, 0, 0.873);
 
+}
+::-webkit-scrollbar-thumb{
+background-color: rgba(255, 166, 2, 0.803);
+border-radius: 2rem;
+}
 @media (prefers-reduced-motion: no-preference) {
   .App-logo {
     animation: App-logo-spin infinite 20s linear;

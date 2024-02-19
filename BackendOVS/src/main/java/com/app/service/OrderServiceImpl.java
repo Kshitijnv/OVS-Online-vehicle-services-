@@ -4,9 +4,9 @@ import java.math.BigInteger;
 import java.text.SimpleDateFormat;
 import java.time.LocalTime;
 import java.util.Date;
-import java.util.Optional;
 
 import javax.annotation.PostConstruct;
+import javax.persistence.EntityNotFoundException;
 
 import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,7 +14,10 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.app.controller.AppointmentDTO;
+import com.app.controller.BillDTO;
 import com.app.dao.OrderRepository;
+import com.app.entities.Appointment;
 import com.app.entities.Bill;
 import com.app.entities.User;
 import com.app.paymentgateway.OrderRequest;
@@ -75,9 +78,24 @@ public class OrderServiceImpl implements OrderService {
 	}
 
 	@Override
-	 public Bill getOrderDetails(String id) {
-        Optional<Bill> order = orderDao.findByrazorPayId(id);
-        return order.get();
+	 public BillDTO getOrderDetails(String id) {
+		
+        Bill order = orderDao.findByrazorPayId(id).orElseThrow(()->new EntityNotFoundException());
+        
+        Appointment appointmentByBillId = appointmentService.getAppointmentByBillId(order);
+        BillDTO billDTO = new BillDTO();
+        billDTO.setApplicationFee(order.getApplicationFee());
+        billDTO.setTransactionDate(order.getTransactionDate());
+        
+        AppointmentDTO appointmentDTO = new AppointmentDTO();
+		appointmentDTO.setId(appointmentByBillId.getId());
+		appointmentDTO.setOwnerName(appointmentByBillId.getUser().getFirstName() + appointmentByBillId.getUser().getLastName());
+		appointmentDTO.setOwnerVehicleName(appointmentByBillId.getVehicle().getManufacturer());
+		appointmentDTO.setStatus(appointmentByBillId.getStatus().toString());
+		appointmentDTO.setServiceName(appointmentByBillId.getCarService().getName());
+        
+        billDTO.setAppointmentDTO(appointmentDTO);
+        return billDTO;
     }
 
    

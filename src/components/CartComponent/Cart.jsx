@@ -5,36 +5,33 @@ import axios from "axios";
 import { useAuth0 } from "@auth0/auth0-react";
 import { useNavigate } from "react-router-dom";
 import "./Cart.css";
+import { toast } from "react-toastify";
 function Cart() {
   const [cartdata, setCartdata] = useState([]);
   const { user } = useAuth0();
   const [selectedDate, setSelectedDate] = useState(null);
   const [selectedTimeSlot, setSelectedTimeSlot] = useState(null);
   const [isOrderReady, setIsOrderReady] = useState(false);
-  const [showErrorMessage, setShowErrorMessage] = useState(false);
   const [street, setStreet] = useState("");
   const [area, setArea] = useState("");
   const [city, setCity] = useState("");
   const [state, setState] = useState("");
   const navigate = useNavigate();
 
-  // Function to update selected date
   const handleDateClick = (date) => {
     setSelectedDate(date);
-    validateOrder(); // Trigger validation when date changes
   };
 
-  // Function to update selected time slot
   const handleTimeSlotClick = (timeSlot) => {
     setSelectedTimeSlot(timeSlot);
-    validateOrder(); // Trigger validation when time slot changes
   };
-  // Function to validate order readiness
-  const validateOrder = () => {
-    // Perform validation logic based on your requirements
-    const isReady = selectedDate && selectedTimeSlot; // Add more conditions as needed
-    setIsOrderReady(isReady);
-  };
+  useEffect(() => {
+    const validateOrder = () => {
+      const isReady = selectedDate && selectedTimeSlot;
+      setIsOrderReady(isReady);
+    };
+    validateOrder();
+  }, [selectedDate, selectedTimeSlot]);
 
   // Access the service price from the location state
   const servicePrice = cartdata.price + 99;
@@ -56,9 +53,6 @@ function Cart() {
       // Perform actions when the "Place an Order" button is clicked
       // You can use the userAddress, selectedDate, selectedTimeSlot, etc.
       console.log("button clicked");
-      // let orderId =
-      //   "OD" +
-      //   Math.floor(Math.random() * Math.floor(Math.random() * Date.now()));
 
       const res = await loadScript(
         "https://checkout.razorpay.com/v1/checkout.js"
@@ -117,14 +111,22 @@ function Cart() {
       let paymentObject = new window.Razorpay(options);
       paymentObject.open();
     } else {
-      console.log("not happend");
       // Display error message to the user
-      setShowErrorMessage(true);
-
-      // Hide the error message after a few seconds (adjust as needed)
-      setTimeout(() => {
-        setShowErrorMessage(false);
-      }, 3000);
+      toast.warning(
+        "Please fill all the required details before placing an order.",
+        {
+          position: "top-center",
+          autoClose: 3000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: false,
+          draggable: true,
+          progress: undefined,
+          style: {
+            width: "400px",
+          },
+        }
+      );
     }
   };
   const deleteHandler = () => {
@@ -202,7 +204,7 @@ function Cart() {
     setArea(line2);
     setCity(city);
     setState(state);
-    console.log(street, area, city, state);
+    console.log(line1, line2, city, state);
   };
   return (
     <div>
@@ -212,11 +214,6 @@ function Cart() {
         <div>
           <h2>Shopping Cart</h2>
           <div className="container main-container-cart">
-            {showErrorMessage && (
-              <div className="error-message">
-                Please fill in all the required details before placing an order.
-              </div>
-            )}
             <div className="row">
               <div className="col-md-8">
                 <div className="date-time-section">

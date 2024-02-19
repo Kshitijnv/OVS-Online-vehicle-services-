@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import "./AddressSection.css";
 import { API_KEY } from "./config";
+import { toast } from "react-toastify";
 
 const AddressSection = (props) => {
   const [street, setStreet] = useState("");
@@ -56,8 +57,36 @@ const AddressSection = (props) => {
     }
   }, [selectedState]);
   const saveAddress = () => {
-    props.addAddress(street, area, selectedCity, selectedState);
+    if (
+      street === "" ||
+      area === "" ||
+      selectedCity === "" ||
+      selectedState === ""
+    ) {
+      toast.warning("Please, fill the Address correctly", {
+        position: "top-center",
+        autoClose: 3000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: false,
+        draggable: true,
+        progress: undefined,
+      });
+    } else {
+      console.log(street, area, selectedCity, selectedState);
+      props.addAddress(street, area, selectedCity, selectedState);
+      toast.success("Address Saved!!!", {
+        position: "top-center",
+        autoClose: 3000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: false,
+        draggable: true,
+        progress: undefined,
+      });
+    }
   };
+
   return (
     <table className="address-section">
       <tbody>

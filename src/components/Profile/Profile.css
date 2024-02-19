@@ -6,12 +6,9 @@
   
   .profile-details table {
     width: 30%;
-    border-color: black;
-    border-radius: 10px;
-    border-style: solid;
     margin-bottom: 20px;
     text-align: center;
-    background-color:rgb(238, 255, 0) ;
+    background-color:rgba(232, 179, 87, 0.702) ;
     margin-left: 425px;
   }
   
@@ -20,7 +17,7 @@
     border: 1px solid #ddd;
   
   }
-  
+ 
   .profile-details button.btn-edit{
     background-color: #3498db;
     color: white;
@@ -39,10 +36,11 @@
   .edit_details{
     width: 30%;
     margin: 0 auto; 
-    background-color: rgb(238, 255, 0);
+    background-color: rgba(246, 188, 0, 0.727);
     border-color: black;
     border-radius: 10px;
     border-style: solid;
+    margin-bottom: 1rem;
   }
 
   .profile-container{

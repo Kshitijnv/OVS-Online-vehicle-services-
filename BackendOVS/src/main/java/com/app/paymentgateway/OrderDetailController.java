@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.app.controller.BillDTO;
 import com.app.entities.Bill;
 import com.app.service.OrderService;
 
@@ -55,9 +56,9 @@ public class OrderDetailController {
 
 	}
 	@GetMapping("/{id}")
-    public ResponseEntity<Bill> getOrderDetails(@PathVariable String id) {
+    public ResponseEntity<BillDTO> getOrderDetails(@PathVariable String id) {
         try {
-             Bill orderDetails = orderService.getOrderDetails(id);
+        	BillDTO orderDetails = orderService.getOrderDetails(id);
             return ResponseEntity.ok(orderDetails);
         } catch (NoSuchElementException e) {
             return ResponseEntity.notFound().build();

@@ -1,6 +1,5 @@
 import React from "react";
 import "./Hero.css";
-import { HiLocationMarker } from "react-icons/hi";
 import CountUp from "react-countup";
 import Cards from "./Cards/Cards";
 import Testimonial from "./Testimonial/Testimonial";
