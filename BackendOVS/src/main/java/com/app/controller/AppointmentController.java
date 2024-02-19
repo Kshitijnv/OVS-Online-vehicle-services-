@@ -11,14 +11,11 @@ import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.app.entities.Appointment;
 import com.app.service.AppointmentService;
-
-import io.swagger.v3.oas.annotations.parameters.RequestBody;
 
 @RestController
 @RequestMapping("/appointments")
@@ -29,9 +26,9 @@ public class AppointmentController {
 	private AppointmentService appointmentService;
 
 	@GetMapping
-	public ResponseEntity<List<Appointment>> getAllAppointments() {
+	public ResponseEntity<List<AppointmentDTO>> getAllAppointments() {
 		try {
-			List<Appointment> allAppointments = appointmentService.getAllAppointments();
+			List<AppointmentDTO> allAppointments = appointmentService.getAllAppointments();
 			return ResponseEntity.status(HttpStatus.OK).body(allAppointments);
 		} catch (Exception e) {
 			System.out.println("error occurred in" + e.getClass());
@@ -39,11 +36,21 @@ public class AppointmentController {
 		}
 	}
 
+	@GetMapping("/{id}/complete")
+	public ResponseEntity<Void> setAppointmentComplete(@PathVariable Long id) {
+		try {
+			appointmentService.setCompleteAppointment(id);
+			return ResponseEntity.status(HttpStatus.ACCEPTED).body(null);
+		} catch (EntityNotFoundException e) {
+			return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(null);
+		}
+	}
+
 	@GetMapping("/{id}")
-	public ResponseEntity<Appointment> getAppointmentDetails(@PathVariable Long id) {
+	public ResponseEntity<AppointmentDTO> getAppointmentDetails(@PathVariable Long id) {
 		try {
 			System.out.println("in appointment by user handler");
-			Appointment appointment = appointmentService.getAppointmentById(id);
+			AppointmentDTO appointment = appointmentService.getAppointmentById(id);
 			return ResponseEntity.status(HttpStatus.OK).body(appointment);
 		} catch (EntityNotFoundException e) {
 			return ResponseEntity.status(HttpStatus.NOT_FOUND).body(null);
@@ -61,19 +68,6 @@ public class AppointmentController {
 			return ResponseEntity.status(HttpStatus.NO_CONTENT).body(null);
 		}
 	}
-
-	@PutMapping("/{id}")
-	public ResponseEntity<Appointment> updateAppointment(@PathVariable Long id, @RequestBody Appointment appointment) {
-		try {
-			Appointment updatedAppointment = appointmentService.updateAppointment(id, appointment);
-			return ResponseEntity.ok(updatedAppointment);
-		} catch (EntityNotFoundException e) {
-			return ResponseEntity.status(HttpStatus.NOT_FOUND).body(null);
-		} catch (Exception e) {
-			return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(null);
-		}
-	}
-
 	@DeleteMapping("/{id}")
 	public ResponseEntity<Void> deleteAppointment(@PathVariable Long id) {
 		try {

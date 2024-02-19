@@ -41,5 +41,5 @@ public class UserController {
 		cartService.saveCartDetails(cartRequest);
 		return ResponseEntity.ok(null);
 	}
-
+	
 }

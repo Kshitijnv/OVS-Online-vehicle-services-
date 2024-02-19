@@ -71,27 +71,39 @@ const Header = () => {
         <nav className="flexCenter h-menu">
           <Link to="/">Home</Link>
           <Link to="/car-selector">Car services</Link>
-          {isAuthenticated ? (
-            <></>
+          <Link to="/about">About us</Link>
+          {isAuthenticated && user.email === "admin@gmail.com" ? (
+            <>
+              <Link to="/appointments">Appointments Booked</Link>
+              <Link to="#" onClick={handleLogout}>
+                Log Out
+              </Link>
+            </>
           ) : (
-            <button onClick={loginHandler}>Log In</button>
-          )}
-          {isAuthenticated && (
-            <div class="dropdown">
-              <span>Welcome, {user.name}</span>
-              <div className="dropdown-content">
-                <Link to="profile">Profile</Link>
-                <Link to="order-history">Order History</Link>
-                <Link to="my-cars">My Cars</Link>
-                <Link to="ManageAddress">Manage Address</Link>
-                <Link to="#" onClick={handleLogout}>
-                  Log Out
-                </Link>
-              </div>
-            </div>
-          )}
+            <>
+              {isAuthenticated && <Link to="/cart">Cart</Link>}
 
-          {isAuthenticated && <Link to="/cart">Cart</Link>}
+              {isAuthenticated ? (
+                <></>
+              ) : (
+                <button onClick={loginHandler}>Log In</button>
+              )}
+              {isAuthenticated && (
+                <div className="dropdown">
+                  <span>Welcome, {user.name}</span>
+                  <div className="dropdown-content">
+                    <Link to="profile">Profile</Link>
+                    <Link to="order-history">Order History</Link>
+                    <Link to="my-cars">My Cars</Link>
+                    <Link to="ManageAddress">Manage Address</Link>
+                    <Link to="#" onClick={handleLogout}>
+                      Log Out
+                    </Link>
+                  </div>
+                </div>
+              )}
+            </>
+          )}
         </nav>
       </div>
     </section>

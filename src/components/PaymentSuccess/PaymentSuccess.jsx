@@ -3,6 +3,7 @@ import { useEffect, useState } from "react";
 import axios from "axios";
 import { useLocation } from "react-router-dom";
 import { Link } from "react-router-dom";
+
 const PaymentSuccess = () => {
   const location = useLocation();
   const orderId = location.state?.razorOrderId || null; // Retrieve order ID from state
@@ -63,6 +64,7 @@ const PaymentSuccess = () => {
               <p>{orderDetails.transactionDate}</p>
             </div>
           </div>
+
           <Link to="/">
             <button className="button">Back To Home</button>
           </Link>

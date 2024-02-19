@@ -4,11 +4,55 @@ import "./OrderHistory.css";
 import { Link } from "react-router-dom";
 import { useAuth0 } from "@auth0/auth0-react";
 import axios from "axios";
-
+import jsPDF from "jspdf";
 const OrderHistory = () => {
   const { user } = useAuth0();
   const [orders, setOrders] = useState([]);
 
+  const generateInvoice = async (id) => {
+    // Create a new PDF document
+    const doc = new jsPDF();
+
+    let response = await axios.get(`http://localhost:7070/appointments/${id}`);
+    let orderDetails = response.data;
+    doc.setFontSize(12);
+
+    // Add invoice header
+    doc.text("Invoice", 105, 10, { align: "center" });
+    doc.line(15, 15, 195, 15); // Horizontal line under the header
+
+    // Add invoice details (two columns)
+    const column1X = 15;
+    const column2X = 100;
+
+    doc.setFont("bold"); // Set font style to bold
+
+    doc.text("Order ID: " + orderDetails.orderId, column2X, 30);
+    doc.text("Owner Name: " + orderDetails.ownerName, column2X, 40);
+
+    doc.text("Vehicle Name: " + orderDetails.ownerVehicleName, column1X, 30);
+
+    doc.text("Transaction Date: " + orderDetails.txDate, column1X, 40);
+
+    // Add table headers
+    doc.text("Item", 15, 50);
+    // doc.text('Price', 105, 70);
+    doc.text("Total", 185, 50);
+    doc.line(15, 52, 195, 52);
+
+    // Add table rows (example data)
+    doc.text(orderDetails.serviceName, 15, 60);
+    // doc.text('Rs100', 105, 90);
+    doc.text(`Rs ${orderDetails.amount - 99}`, 180, 60);
+    doc.line(125, 70, 195, 70);
+    doc.text("Tax:", 150, 80, { align: "right" });
+    doc.text("Rs. 99", 195, 80, { align: "right" });
+    doc.text("Total Amount:", 150, 90, { align: "right" });
+    doc.text(`Rs ${orderDetails.amount}`, 195, 90, { align: "right" });
+
+    // Save the PDF
+    doc.save("invoice.pdf");
+  };
   useEffect(() => {
     async function fetchData() {
       try {
@@ -84,6 +128,13 @@ const OrderHistory = () => {
           <Link to={`/order-details/${id}`} className="button details-button">
             Details
           </Link>
+          <button
+            className="button details-button"
+            onClick={() => generateInvoice(id)}
+          >
+            Generate Invoice
+          </button>
+
           <hr />
           <p className="slot card-subtitle mb-2 text-muted">Selected Slot</p>
           {renderSlotBox(pickUpDate, pickUpTime)}

@@ -1,6 +1,8 @@
 package com.app.service;
 
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 import javax.persistence.EntityNotFoundException;
 
@@ -8,6 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.app.controller.AppointmentDTO;
 import com.app.dao.AddressRepository;
 import com.app.dao.AppointmentRepository;
 import com.app.dao.CarServiceRepository;
@@ -38,14 +41,36 @@ public class AppointmentServiceImpl implements AppointmentService {
 	private UserRepository userDao;
 
 	@Override
-	public List<Appointment> getAllAppointments() {
-		return appointmentDao.findAll();
+	public List<AppointmentDTO> getAllAppointments() {
+		List<Appointment> findAll = appointmentDao.findAllAppointments();
+		List<AppointmentDTO> appointmentDTOs = new ArrayList<>();
+		for(Appointment appoint:findAll) {
+			AppointmentDTO appointmentDTO =  mapToDTO(appoint);
+			appointmentDTOs.add(appointmentDTO);
+		}
+		return appointmentDTOs;
 	}
 
+	AppointmentDTO mapToDTO(Appointment appointment){
+		AppointmentDTO appointmentDTO = new AppointmentDTO();
+		appointmentDTO.setId(appointment.getId());
+		appointmentDTO.setOwnerName(appointment.getUser().getFirstName() + appointment.getUser().getLastName());
+		appointmentDTO.setOwnerVehicleName(appointment.getVehicle().getManufacturer());
+		appointmentDTO.setStatus(appointment.getStatus().toString());
+		appointmentDTO.setServiceName(appointment.getCarService().getName());
+		return appointmentDTO;
+	}
 	@Override
-	public Appointment getAppointmentById(Long id) {
-		return appointmentDao.findById(id)
-				.orElseThrow(() -> new EntityNotFoundException("Appointment not found with id: " + id));
+	public AppointmentDTO getAppointmentById(Long id) {
+		Appointment appointment = appointmentDao.findAppointmentById(id).orElseThrow(()->new EntityNotFoundException());
+		AppointmentDTO appointmentDTO = new AppointmentDTO();
+		appointmentDTO.setOrderId(appointment.getBill().getRazorPayId());
+		appointmentDTO.setOwnerName(appointment.getUser().getFirstName() + appointment.getUser().getLastName());
+		appointmentDTO.setServiceName(appointment.getCarService().getName());
+		appointmentDTO.setTxDate(appointment.getBill().getTransactionDate());
+		appointmentDTO.setOwnerVehicleName(appointment.getVehicle().getManufacturer());
+		appointmentDTO.setAmount(appointment.getBill().getApplicationFee());
+		return appointmentDTO;
 	}
 
 	@Override
@@ -83,15 +108,6 @@ public class AppointmentServiceImpl implements AppointmentService {
 		return appointmentDao.save(appointment);
 	}
 
-	@Override
-	public Appointment updateAppointment(Long id, Appointment updatedAppointment) {
-		// Implement logic for updating appointment
-		// You may need to handle relationships and validations
-		Appointment existingAppointment = getAppointmentById(id);
-		// Update fields of existingAppointment with values from updatedAppointment
-		// ...
-		return appointmentDao.save(existingAppointment);
-	}
 
 	@Override
 	public void deleteAppointment(Long id) {
@@ -110,5 +126,18 @@ public class AppointmentServiceImpl implements AppointmentService {
 //		}
 		return appointmentDao.findByUser(user).orElseThrow(() -> new EntityNotFoundException());
 
+	}
+
+	@Override
+	public void setCompleteAppointment(Long id) {
+		Appointment appointment = appointmentDao.findById(id).orElseThrow(()->new EntityNotFoundException());
+		appointment.setStatus(Status.COMPLETED);
+		appointmentDao.save(appointment);
+	}
+
+	@Override
+	public Appointment getAppointmentByBillId(Bill bill) {
+		Optional<Appointment> findByBill = appointmentDao.findByBill(bill);
+		return findByBill.get();
 	}
 }
