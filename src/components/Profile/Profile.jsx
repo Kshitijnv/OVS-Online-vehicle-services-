@@ -49,13 +49,12 @@ const Profile = () => {
                 <td><b>Email:</b></td>
                 <td>{user.email}</td>
               </tr>
-              {/* Add mobile number if available in user data */}
-              {user.mobile && (
+             
                 <tr>
                   <td><b>Mobile Number:</b></td>
                   <td>{user.mobile}</td>
                 </tr>
-              )}
+            
             </tbody>
           </table>
         )}

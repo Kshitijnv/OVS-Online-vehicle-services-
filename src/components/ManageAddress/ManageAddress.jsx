@@ -15,7 +15,7 @@ const ManageAddress = () => {
       <h3 className="mng-add-title">Manage Addresses</h3>
       <div className="manage-address-container">
         <div className="address-box">
-          <span className="span1"><MdAddLocationAlt />&nbsp;Add new address</span>
+          <span className="span1"><MdAddLocationAlt />&nbsp;<b>Add new address</b></span>
           <button className="addnewbtn" onClick={handleAddNewAddressToggle}>Add New</button>
         </div>
         {showAddNewAddress && <AddNewAddress />}

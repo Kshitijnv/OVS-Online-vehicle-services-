@@ -1,3 +1,5 @@
+@import url("https://fonts.googleapis.com/css2?family=Poppins:wght@200;300;400;500;600;700&display=swap");
+
 .contact-container {
     display: flex;
     
@@ -76,5 +78,60 @@
 
   .contact-title{
     text-align: center;
+  }
+
+  .media-icons {
+    display: flex;
+    margin-left: 200px;
+    margin-top: 100px;
+  }
+  .media-icons a {
+    height: 50px;
+    width: 50px;
+    margin: 0 15px;
+    border-radius: 50%;
+    text-align: center;
+    line-height: 40px;
+    color: #fff;
+    margin-top: 20px;
+    font-size:30px;
+    text-decoration: none;
+    transition: all 0.4s ease;
+    padding-top: 5px;
+  }
+  .media-icons a:nth-child(1) {
+    background: #4267b2;
+  }
+  .media-icons a:nth-child(1):hover {
+    color: #4267b2;
+    background: #fff;
+  }
+  .media-icons a:nth-child(2) {
+    background: #1da1f2;
+  }
+  .media-icons a:nth-child(2):hover {
+    color: #1da1f2;
+    background: #fff;
+  }
+  .media-icons a:nth-child(3) {
+    background: #e1306c;
+  }
+.media-icons a:nth-child(3):hover {
+    color: #e1306c;
+    background: #fff;
+  }
+  .media-icons a:nth-child(4) {
+    background: #0077b5;
+  }
+  .media-icons a:nth-child(4):hover {
+    color: #0077b5;
+    background: #fff;
+  }
+  .media-icons a:nth-child(5) {
+    background: #ff0000;
+  }
+  .media-icons a:nth-child(5):hover {
+    color: #ff0000;
+    background: #fff;
   }
 

@@ -8,6 +8,8 @@
   margin-top: 20px;
   width: fit-content;
   margin: auto; /* Center horizontally */
+  margin-bottom: 100px;
+  margin-top: 30px;
 }
 
 .address-box {
@@ -33,4 +35,8 @@
   padding-top: 20px;
   text-decoration: underline;
   text-align: center; /* Center align the title */
+}
+
+.span1{
+  font-size: medium;
 }

@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from "react-router-dom";
 import './ContactUs.css';
 import { FaUser, FaEnvelope, FaMobileAlt } from 'react-icons/fa';
 const ContactUs = () => {
@@ -40,7 +41,24 @@ const ContactUs = () => {
           <i className="far fa-envelope" style={{ color: 'green' , fontSize: '24px'}} ></i>
           <span>mrbuddy@gmail.com</span>
         </div>
-      </div>
+        <div className="media-icons">
+              <Link to="#">
+                <i className="fab fa-facebook-f"></i>
+              </Link>
+              <Link to="#">
+                <i className="fab fa-twitter"></i>
+              </Link>
+              <Link to="#">
+                <i className="fab fa-instagram"></i>
+              </Link>
+              <Link to="#">
+                <i className="fab fa-linkedin-in"></i>
+              </Link>
+              <Link to="#">
+                <i className="fab fa-youtube"></i>
+              </Link>
+            </div>
+        </div>
     </div>
   );
 }
