@@ -9,7 +9,7 @@ Follow these steps to set up and run the project locally:
 ### Prerequisites
 
 - Java
-- Node.js
+- React.js
 - MySQL
 
 ### Clone the Repository
