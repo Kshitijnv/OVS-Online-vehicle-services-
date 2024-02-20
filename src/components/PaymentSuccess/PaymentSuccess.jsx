@@ -3,14 +3,14 @@ import { useEffect, useState } from "react";
 import axios from "axios";
 import { useLocation } from "react-router-dom";
 import { Link } from "react-router-dom";
-import jsPDF from "jspdf"; 
+import jsPDF from "jspdf";
 const PaymentSuccess = () => {
   const location = useLocation();
   const orderId = location.state?.razorOrderId || null; // Retrieve order ID from state
   const [orderDetails, setOrderDetails] = useState(null);
   const [error, setError] = useState(null);
   const [isLoading, setIsLoading] = useState(true);
-const generateInvoice = async () => {
+  const generateInvoice = async () => {
     // Create a new PDF document
     const doc = new jsPDF();
 
@@ -106,7 +106,7 @@ const generateInvoice = async () => {
               <p>{orderDetails.transactionDate}</p>
             </div>
           </div>
- <button
+          <button
             className="button details-button"
             onClick={() => generateInvoice()}
           >

@@ -14,6 +14,9 @@
 #API
 src/components/Address/config.js
 
+#Application.property
+BackendOVS/src/main/resources/application.properties
+
 # misc
 .DS_Store
 .env.local
