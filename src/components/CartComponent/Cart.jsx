@@ -16,6 +16,7 @@ function Cart() {
   const [area, setArea] = useState("");
   const [city, setCity] = useState("");
   const [state, setState] = useState("");
+  const [isAddressReady, setIsAddressReady] = useState(false);
   const navigate = useNavigate();
 
   const handleDateClick = (date) => {
@@ -27,11 +28,11 @@ function Cart() {
   };
   useEffect(() => {
     const validateOrder = () => {
-      const isReady = selectedDate && selectedTimeSlot;
+      const isReady = selectedDate && selectedTimeSlot && isAddressReady;
       setIsOrderReady(isReady);
     };
     validateOrder();
-  }, [selectedDate, selectedTimeSlot]);
+  }, [selectedDate, selectedTimeSlot, isAddressReady]);
 
   // Access the service price from the location state
   const servicePrice = cartdata.price + 99;
@@ -204,6 +205,7 @@ function Cart() {
     setArea(line2);
     setCity(city);
     setState(state);
+    setIsAddressReady(true);
     console.log(line1, line2, city, state);
   };
   return (

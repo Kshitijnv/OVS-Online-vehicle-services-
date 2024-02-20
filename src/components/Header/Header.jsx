@@ -71,7 +71,7 @@ const Header = () => {
         <nav className="flexCenter h-menu">
           <Link to="/">Home</Link>
           <Link to="/car-selector">Car services</Link>
-          <Link to="/about">About us</Link>
+          <Link to="/ContactUs">Contact Us</Link>
           {isAuthenticated && user.email === "admin@gmail.com" ? (
             <>
               <Link to="/appointments">Appointments Booked</Link>

@@ -5,8 +5,9 @@ import { Link } from "react-router-dom";
 import { useAuth0 } from "@auth0/auth0-react";
 import axios from "axios";
 import jsPDF from "jspdf";
+import { toast } from "react-toastify";
 const OrderHistory = () => {
-  const { user } = useAuth0();
+  const { user, isAuthenticated } = useAuth0();
   const [orders, setOrders] = useState([]);
 
   const generateInvoice = async (id) => {
@@ -54,25 +55,29 @@ const OrderHistory = () => {
     doc.save("invoice.pdf");
   };
   useEffect(() => {
-    async function fetchData() {
-      try {
-        const response = await axios.get(
-          `http://localhost:7070/appointments/all/${user.email}`
-        );
+    if (isAuthenticated) {
+      async function fetchData() {
+        try {
+          const response = await axios.get(
+            `http://localhost:7070/appointments/all/${user.email}`
+          );
 
-        // Sort orders by date:
-        const sortedOrders = response.data.sort((a, b) => {
-          // Assuming pickUpDate is a string representing a date
-          return new Date(a.pickUpDate) - new Date(b.pickUpDate);
-        });
+          // Sort orders by date:
+          const sortedOrders = response.data.sort((a, b) => {
+            // Assuming pickUpDate is a string representing a date
+            return new Date(a.pickUpDate) - new Date(b.pickUpDate);
+          });
 
-        setOrders(sortedOrders);
-      } catch (error) {
-        console.error("Error fetching orders:", error);
+          setOrders(sortedOrders);
+        } catch (error) {
+          console.error("Error fetching orders:", error);
+        }
       }
+      fetchData();
+    } else {
+      toast.warn("please login first!!");
     }
-    fetchData();
-  }, [user.email]);
+  }, [isAuthenticated && user.email]);
 
   const renderSlotBox = (dateString, timeString) => {
     try {
@@ -111,62 +116,83 @@ const OrderHistory = () => {
       status === "BOOKED" ? "ongoing-orders" : "completed-orders";
 
     return (
-      <div key={id} className={`order-item ${orderCategory} card mb-3`}>
-        <div className="order-details card-body">
-          <p className="card-title h5">
-            <strong>Model Name:</strong> {manufacturer}
-          </p>
-          <p>
-            <strong>Manufacturer Year:</strong> {yearOfManufacturer}
-          </p>
-          <p>
-            <strong>Fuel Type: </strong> {fuelType}
-          </p>
-          <p>
-            <strong>Price:</strong> Rs.{applicationFee}
-          </p>
-          <Link to={`/order-details/${id}`} className="button details-button">
-            Details
-          </Link>
-          <button
-            className="button details-button"
-            onClick={() => generateInvoice(id)}
-          >
-            Generate Invoice
-          </button>
+      <>
+        {isAuthenticated ? (
+          <div key={id} className={`order-item ${orderCategory} card mb-3`}>
+            <div className="order-details card-body">
+              <p className="card-title h5">
+                <strong>Model Name:</strong> {manufacturer}
+              </p>
+              <p>
+                <strong>Manufacturer Year:</strong> {yearOfManufacturer}
+              </p>
+              <p>
+                <strong>Fuel Type: </strong> {fuelType}
+              </p>
+              <p>
+                <strong>Price:</strong> Rs.{applicationFee}
+              </p>
+              <Link
+                to={`/order-details/${id}`}
+                className="button details-button"
+              >
+                Details
+              </Link>
+              <button
+                className="button details-button"
+                onClick={() => generateInvoice(id)}
+              >
+                Generate Invoice
+              </button>
 
-          <hr />
-          <p className="slot card-subtitle mb-2 text-muted">Selected Slot</p>
-          {renderSlotBox(pickUpDate, pickUpTime)}
-          <p>
-            <strong>Status:</strong>{" "}
-            <span className={`status ${status.toLowerCase()}`}>{status}</span>
-          </p>
-        </div>
-      </div>
+              <hr />
+              <p className="slot card-subtitle mb-2 text-muted">
+                Selected Slot
+              </p>
+              {renderSlotBox(pickUpDate, pickUpTime)}
+              <p>
+                <strong>Status:</strong>{" "}
+                <span className={`status ${status.toLowerCase()}`}>
+                  {status}
+                </span>
+              </p>
+            </div>
+          </div>
+        ) : (
+          <div></div>
+        )}
+      </>
     );
   };
 
   return (
-    <div className="order-history-container container mt-4">
-      <div className="order-history-header">
-        <h2>Order History</h2>
-      </div>
-      <div className="order-history-content">
-        <div className="ongoing-orders">
-          <h3>Ongoing Orders</h3>
-          <hr />
-          {orders.filter((order) => order.status === "BOOKED").map(renderOrder)}
+    <>
+      {isAuthenticated ? (
+        <div className="order-history-container container mt-4">
+          <div className="order-history-header">
+            <h2>Order History</h2>
+          </div>
+          <div className="order-history-content">
+            <div className="ongoing-orders">
+              <h3>Ongoing Orders</h3>
+              <hr />
+              {orders
+                .filter((order) => order.status === "BOOKED")
+                .map(renderOrder)}
+            </div>
+            <div className="completed-orders">
+              <h3>Completed Orders</h3>
+              <hr />
+              {orders
+                .filter((order) => order.status === "COMPLETED")
+                .map(renderOrder)}
+            </div>
+          </div>
         </div>
-        <div className="completed-orders">
-          <h3>Completed Orders</h3>
-          <hr />
-          {orders
-            .filter((order) => order.status === "COMPLETED")
-            .map(renderOrder)}
-        </div>
-      </div>
-    </div>
+      ) : (
+        <div></div>
+      )}
+    </>
   );
 };
 
